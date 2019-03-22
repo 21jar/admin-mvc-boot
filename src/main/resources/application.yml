@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  profiles:
+    active: dev
+  freemarker:
+    suffix: .html
+    request-context-attribute: request
+  mvc:
+    static-path-pattern: /statics/**
+  resources:
+    static-locations: classpath:/statics/
+
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.ixiangliu.modules.*.entity
+  global-config:
+    #数据库相关配置
+    db-config:
+      #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID", ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: AUTO
+      # IGNORED：所有字段都更新和插入
+      # NOT_NULL：只更新和插入非NULL值
+      # NOT_EMPTY：只更新和插入非NULL值且非空字符串
+      field-strategy: NOT_NULL
+      #驼峰下划线转换
+      column-underline: true
