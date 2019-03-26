@@ -47,7 +47,7 @@ var vm = new Vue({
                 return ;
             }
 
-            $.get(baseURL + "/sys/dept/info/"+deptId, function(r){
+            $.get(baseURL + "sys/dept/info/"+deptId, function(r){
                 vm.showList = false;
                 vm.title = "修改";
                 vm.dept = r.dept;
@@ -156,7 +156,7 @@ function getDeptId () {
 
 
 $(function () {
-    $.get(baseURL + "/sys/dept/info", function(r){
+    $.get(baseURL + "sys/dept/info", function(r){
         var colunms = Dept.initColumn();
         var table = new TreeTable(Dept.id, baseURL + "/sys/dept/list", colunms);
         table.setRootCodeValue(r.deptId);

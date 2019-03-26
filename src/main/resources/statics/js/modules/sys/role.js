@@ -1,6 +1,6 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: baseURL + '/sys/role/list',
+        url: baseURL + 'sys/role/list',
         datatype: "json",
         colModel: [
             { label: '角色ID', name: 'roleId', index: "role_id", width: 45, key: true },
@@ -214,7 +214,7 @@ var vm = new Vue({
         },
         getMenuTree: function(roleId) {
             //加载菜单树
-            $.get(baseURL + "/sys/menu/list", function(r){
+            $.get(baseURL + "sys/menu/list", function(r){
                 menu_ztree = $.fn.zTree.init($("#menuTree"), menu_setting, r);
                 //展开所有节点
                 menu_ztree.expandAll(true);

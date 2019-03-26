@@ -1,6 +1,6 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: baseURL + '/sys/dict/list',
+        url: baseURL + 'sys/dict/list',
         datatype: "json",
         colModel: [			
 			{ label: '字典名称', name: 'name', index: 'name', width: 80 },

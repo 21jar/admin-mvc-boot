@@ -1,5 +1,6 @@
 package com.ixiangliu.modules.sys.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ixiangliu.common.constant.Const;
 import com.ixiangliu.modules.sys.dao.MenuDao;
@@ -79,4 +80,18 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
     public List<Menu> queryListParentId(Long parentId) {
         return baseMapper.queryListParentId(parentId);
     }
+
+    @Override
+    public List<Menu> queryNotButtonList() {
+        return baseMapper.queryNotButtonList();
+    }
+
+    @Override
+    public void delete(Long menuId){
+        //删除菜单
+        this.removeById(menuId);
+        //删除菜单与角色关联
+        sysRoleMenuService.remove(new QueryWrapper<SysRoleMenuEntity>().eq("menu_id", menuId));
+    }
+
 }
