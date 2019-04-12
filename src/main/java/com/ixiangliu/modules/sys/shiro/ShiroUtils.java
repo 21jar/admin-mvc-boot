@@ -32,7 +32,7 @@ public class ShiroUtils {
         return (User) SecurityUtils.getSubject().getPrincipal();
     }
 
-    public static Long getId() {
+    public static Long getUserId() {
         return getUser().getId();
     }
 

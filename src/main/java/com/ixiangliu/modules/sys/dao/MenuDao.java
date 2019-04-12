@@ -13,4 +13,6 @@ import java.util.List;
 public interface MenuDao extends BaseMapper<Menu> {
 
     List<Menu> queryListParentId(Long parentId);
+
+    List<Menu> queryNotButtonList();
 }

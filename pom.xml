@@ -34,6 +34,10 @@
 
         <fastjson.version>1.2.47</fastjson.version>
 
+        <pagehelper.version>1.2.10</pagehelper.version>
+
+        <mssql.version>7.0.0.jre8</mssql.version>
+
     </properties>
 
     <dependencies>
@@ -78,12 +82,30 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${druid.version}</version>
         </dependency>
+        <!-- mapper分页包 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${pagehelper.version}</version>
+        </dependency>
         <!-- Mysql -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
         </dependency>
+        <!-- mssql-jdbc -->
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>${mssql.version}</version>
+        </dependency>
+
+        <!--jpa-->
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
+        <!--</dependency>-->
 
         <!--lombok-->
         <dependency>

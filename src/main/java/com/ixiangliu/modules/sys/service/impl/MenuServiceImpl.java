@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ixiangliu.common.constant.Const;
 import com.ixiangliu.modules.sys.dao.MenuDao;
 import com.ixiangliu.modules.sys.entity.Menu;
+import com.ixiangliu.modules.sys.entity.RoleMenu;
 import com.ixiangliu.modules.sys.service.IMenuService;
+import com.ixiangliu.modules.sys.service.IRoleMenuService;
 import com.ixiangliu.modules.sys.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
 
     @Autowired
     IUserService iUserService;
+
+    @Autowired
+    IRoleMenuService iRoleMenuService;
+
+    @Autowired
+    MenuDao menuDao;
 
     @Override
     public List<Menu> getUserMenuList(Long userId) {
@@ -78,12 +86,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
 
     @Override
     public List<Menu> queryListParentId(Long parentId) {
-        return baseMapper.queryListParentId(parentId);
+        return menuDao.queryListParentId(parentId);
     }
 
     @Override
     public List<Menu> queryNotButtonList() {
-        return baseMapper.queryNotButtonList();
+        return menuDao.queryNotButtonList();
     }
 
     @Override
@@ -91,7 +99,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
         //删除菜单
         this.removeById(menuId);
         //删除菜单与角色关联
-        sysRoleMenuService.remove(new QueryWrapper<SysRoleMenuEntity>().eq("menu_id", menuId));
+        iRoleMenuService.remove(new QueryWrapper<RoleMenu>().eq("menu_id", menuId));
     }
 
 }
