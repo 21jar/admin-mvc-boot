@@ -28,7 +28,7 @@ var vm = new Vue({
     methods: {
         getMenu: function(menuId){
             //加载菜单树
-            $.get(baseURL + "/sys/menu/select", function(r){
+            $.get(baseURL + "sys/menu/select", function(r){
                 ztree = $.fn.zTree.init($("#menuTree"), setting, r.menuList);
                 var node = ztree.getNodeByParam("menuId", vm.menu.parentId);
                 ztree.selectNode(node);
@@ -48,7 +48,7 @@ var vm = new Vue({
                 return ;
             }
 
-            $.get(baseURL + "/sys/menu/info/"+menuId, function(r){
+            $.get(baseURL + "sys/menu/info/"+menuId, function(r){
                 vm.showList = false;
                 vm.title = "修改";
                 vm.menu = r.menu;
@@ -65,7 +65,7 @@ var vm = new Vue({
             confirm('确定要删除选中的记录？', function(){
                 $.ajax({
                     type: "POST",
-                    url: baseURL + "/sys/menu/delete",
+                    url: baseURL + "sys/menu/delete",
                     data: "menuId=" + menuId,
                     success: function(r){
                         if(r.code === 0){

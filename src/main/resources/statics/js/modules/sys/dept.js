@@ -27,7 +27,7 @@ var vm = new Vue({
     methods: {
         getDept: function(){
             //加载部门树
-            $.get(baseURL + "/sys/dept/select", function(r){
+            $.get(baseURL + "sys/dept/select", function(r){
                 ztree = $.fn.zTree.init($("#deptTree"), setting, r.deptList);
                 var node = ztree.getNodeByParam("deptId", vm.dept.parentId);
                 ztree.selectNode(node);
@@ -64,7 +64,7 @@ var vm = new Vue({
             confirm('确定要删除选中的记录？', function(){
                 $.ajax({
                     type: "POST",
-                    url: baseURL + "/sys/dept/delete",
+                    url: baseURL + "sys/dept/delete",
                     data: "deptId=" + deptId,
                     success: function(r){
                         if(r.code === 0){
@@ -79,7 +79,7 @@ var vm = new Vue({
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.dept.deptId == null ? "/sys/dept/save" : "/sys/dept/update";
+            var url = vm.dept.deptId == null ? "sys/dept/save" : "sys/dept/update";
             $.ajax({
                 type: "POST",
                 url: baseURL + url,
@@ -158,7 +158,7 @@ function getDeptId () {
 $(function () {
     $.get(baseURL + "sys/dept/info", function(r){
         var colunms = Dept.initColumn();
-        var table = new TreeTable(Dept.id, baseURL + "/sys/dept/list", colunms);
+        var table = new TreeTable(Dept.id, baseURL + "sys/dept/list", colunms);
         table.setRootCodeValue(r.deptId);
         table.setExpandColumn(2);
         table.setIdField("deptId");

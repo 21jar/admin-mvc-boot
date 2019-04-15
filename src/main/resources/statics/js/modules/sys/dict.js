@@ -67,7 +67,7 @@ var vm = new Vue({
             vm.getInfo(id)
 		},
 		saveOrUpdate: function (event) {
-			var url = vm.dict.id == null ? "/sys/dict/save" : "/sys/dict/update";
+			var url = vm.dict.id == null ? "sys/dict/save" : "sys/dict/update";
 			$.ajax({
 				type: "POST",
 			    url: baseURL + url,
@@ -93,7 +93,7 @@ var vm = new Vue({
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
-				    url: baseURL + "/sys/dict/delete",
+				    url: baseURL + "sys/dict/delete",
                     contentType: "application/json",
 				    data: JSON.stringify(ids),
 				    success: function(r){
@@ -109,7 +109,7 @@ var vm = new Vue({
 			});
 		},
 		getInfo: function(id){
-			$.get(baseURL + "/sys/dict/info/"+id, function(r){
+			$.get(baseURL + "sys/dict/info/"+id, function(r){
                 vm.dict = r.dict;
             });
 		},

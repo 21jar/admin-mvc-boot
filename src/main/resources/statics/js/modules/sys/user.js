@@ -1,6 +1,6 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: baseURL + '/sys/user/list',
+        url: baseURL + 'sys/user/list',
         datatype: "json",
         colModel: [			
 			{ label: '用户ID', name: 'userId', index: "user_id", width: 45, key: true },
@@ -89,7 +89,7 @@ var vm = new Vue({
         },
         getDept: function(){
             //加载部门树
-            $.get(baseURL + "/sys/dept/list", function(r){
+            $.get(baseURL + "sys/dept/list", function(r){
                 ztree = $.fn.zTree.init($("#deptTree"), setting, r);
                 var node = ztree.getNodeByParam("deptId", vm.user.deptId);
                 if(node != null){
@@ -118,7 +118,7 @@ var vm = new Vue({
                 return ;
             }
 
-            window.location.href=baseURL+"/sys/permissions/index/"+userId;
+            window.location.href=baseURL+"sys/permissions/index/"+userId;
         },
         del: function () {
             var userIds = getSelectedRows();
@@ -129,7 +129,7 @@ var vm = new Vue({
             confirm('确定要删除选中的记录？', function(){
                 $.ajax({
                     type: "POST",
-                    url: baseURL + "/sys/user/delete",
+                    url: baseURL + "sys/user/delete",
                     contentType: "application/json",
                     data: JSON.stringify(userIds),
                     success: function(r){
@@ -145,7 +145,7 @@ var vm = new Vue({
             });
         },
         saveOrUpdate: function () {
-            var url = vm.user.userId == null ? "/sys/user/save" : "/sys/user/update";
+            var url = vm.user.userId == null ? "sys/user/save" : "sys/user/update";
             $.ajax({
                 type: "POST",
                 url: baseURL + url,
@@ -163,7 +163,7 @@ var vm = new Vue({
             });
         },
         getUser: function(userId){
-            $.get(baseURL + "/sys/user/info/"+userId, function(r){
+            $.get(baseURL + "sys/user/info/"+userId, function(r){
                 vm.user = r.user;
                 vm.user.password = null;
 
@@ -171,7 +171,7 @@ var vm = new Vue({
             });
         },
         getRoleList: function(){
-            $.get(baseURL + "/sys/role/select", function(r){
+            $.get(baseURL + "sys/role/select", function(r){
                 vm.roleList = r.list;
             });
         },

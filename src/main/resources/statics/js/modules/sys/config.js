@@ -60,7 +60,7 @@ var vm = new Vue({
 				return ;
 			}
 			
-			$.get(baseURL + "/sys/config/info/"+id, function(r){
+			$.get(baseURL + "sys/config/info/"+id, function(r){
                 vm.showList = false;
                 vm.title = "修改";
                 vm.config = r.config;
@@ -75,7 +75,7 @@ var vm = new Vue({
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
-				    url: baseURL + "/sys/config/delete",
+				    url: baseURL + "sys/config/delete",
                     contentType: "application/json",
 				    data: JSON.stringify(ids),
 				    success: function(r){
@@ -91,7 +91,7 @@ var vm = new Vue({
 			});
 		},
 		saveOrUpdate: function (event) {
-			var url = vm.config.id == null ? "/sys/config/save" : "/sys/config/update";
+			var url = vm.config.id == null ? "sys/config/save" : "sys/config/update";
 			$.ajax({
 				type: "POST",
 			    url: baseURL + url,

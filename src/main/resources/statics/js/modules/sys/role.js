@@ -142,7 +142,7 @@ var vm = new Vue({
             confirm('确定要删除选中的记录？', function(){
                 $.ajax({
                     type: "POST",
-                    url: baseURL + "/sys/role/delete",
+                    url: baseURL + "sys/role/delete",
                     contentType: "application/json",
                     data: JSON.stringify(roleIds),
                     success: function(r){
@@ -158,7 +158,7 @@ var vm = new Vue({
             });
         },
         getRole: function(roleId){
-            $.get(baseURL + "/sys/role/info/"+roleId, function(r){
+            $.get(baseURL + "sys/role/info/"+roleId, function(r){
                 vm.role = r.role;
 
                 //勾选角色所拥有的菜单
@@ -195,7 +195,7 @@ var vm = new Vue({
             }
             vm.role.deptIdList = deptIdList;
 
-            var url = vm.role.roleId == null ? "/sys/role/save" : "/sys/role/update";
+            var url = vm.role.roleId == null ? "sys/role/save" : "sys/role/update";
             $.ajax({
                 type: "POST",
                 url: baseURL + url,
@@ -226,7 +226,7 @@ var vm = new Vue({
         },
         getDataTree: function(roleId) {
             //加载菜单树
-            $.get(baseURL + "/sys/dept/list", function(r){
+            $.get(baseURL + "sys/dept/list", function(r){
                 data_ztree = $.fn.zTree.init($("#dataTree"), data_setting, r);
                 //展开所有节点
                 data_ztree.expandAll(true);
@@ -234,7 +234,7 @@ var vm = new Vue({
         },
         getDept: function(){
             //加载部门树
-            $.get(baseURL + "/sys/dept/list", function(r){
+            $.get(baseURL + "sys/dept/list", function(r){
                 dept_ztree = $.fn.zTree.init($("#deptTree"), dept_setting, r);
                 var node = dept_ztree.getNodeByParam("deptId", vm.role.deptId);
                 if(node != null){
