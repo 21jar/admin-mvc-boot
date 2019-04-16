@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@Service("sysDeptService")
+@Service
 public class DeptServiceImpl extends ServiceImpl<DeptDao, Dept> implements IDeptService {
 	
 	@Override

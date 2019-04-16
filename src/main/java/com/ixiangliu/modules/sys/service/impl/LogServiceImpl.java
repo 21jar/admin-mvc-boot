@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 
-@Service("sysLogService")
+@Service
 public class LogServiceImpl extends ServiceImpl<LogDao, Log> implements ILogService {
 
     @Override

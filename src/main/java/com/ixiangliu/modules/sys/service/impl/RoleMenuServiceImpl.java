@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 角色与菜单对应关系
  */
-@Service("sysRoleMenuService")
+@Service
 public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuDao, RoleMenu> implements IRoleMenuService {
 
 	@Override

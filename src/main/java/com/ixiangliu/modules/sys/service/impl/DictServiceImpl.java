@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 
-@Service("sysDictService")
+@Service
 public class DictServiceImpl extends ServiceImpl<DictDao, Dict> implements IDictService {
 
     @Override

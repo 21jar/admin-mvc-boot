@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 用户与角色对应关系
  */
-@Service("sysUserRoleService")
+@Service
 public class UserRoleServiceImpl extends ServiceImpl<UserRoleDao, UserRole> implements IUserRoleService {
 	@Override
 	public void saveOrUpdate(Long userId, List<Long> roleIdList) {
