@@ -88,9 +88,9 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
 
     @Override
     public boolean updatePassword(Long userId, String password, String newPassword) {
-        User userEntity = new User();
-        userEntity.setPassword(newPassword);
-        return this.update(userEntity,
+        User user = new User();
+        user.setPassword(newPassword);
+        return this.update(user,
                 new QueryWrapper<User>().eq("user_id", userId).eq("password", password));
     }
 
