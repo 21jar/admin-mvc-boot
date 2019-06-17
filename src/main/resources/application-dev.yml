@@ -2,17 +2,16 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-#      driver-class-name: com.mysql.jdbc.Driver
-      # allowMultiQueries=true mysql的批量更新
-#      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#      url: jdbc:mysql://47.75.163.65:3306/admin?ucharacterEncoding=UTF-8
-#      username: root
-#      password: 1qa2ws!@
+#      allowMultiQueries=true mysql的批量更新
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://a.com:3306/admin?characterEncoding=UTF-8
+      username: root
+      password: 123qweasd
 
-      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-      url: jdbc:sqlserver://127.0.0.1:1433;Databasename=admin
-      username: sa
-      password: 1234qwer!
+#      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#      url: jdbc:sqlserver://127.0.0.1:1433;Databasename=admin
+#      username: sa
+#      password: 1234qwer!
 
       initial-size: 1
       max-active: 20
