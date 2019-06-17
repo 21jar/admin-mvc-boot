@@ -40,3 +40,7 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+
+logging:
+  level:
+    com.ixiangliu.modules.*.dao : debug
