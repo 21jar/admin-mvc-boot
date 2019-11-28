@@ -3,6 +3,7 @@ package com.ixiangliu.modules.sys.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ixiangliu.modules.sys.entity.RoleDept;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * 角色与部门对应关系
  */
 @Mapper
+@Repository
 public interface RoleDeptDao extends BaseMapper<RoleDept> {
 	
 	/**

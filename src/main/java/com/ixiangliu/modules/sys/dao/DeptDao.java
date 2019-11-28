@@ -3,6 +3,7 @@ package com.ixiangliu.modules.sys.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ixiangliu.modules.sys.entity.Dept;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.Map;
  * @author Mark sunlightcs@gmail.com
  */
 @Mapper
+@Repository
 public interface DeptDao extends BaseMapper<Dept> {
 
     List<Dept> queryList(Map<String, Object> params);

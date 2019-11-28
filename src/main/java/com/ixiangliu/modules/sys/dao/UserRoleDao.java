@@ -3,6 +3,7 @@ package com.ixiangliu.modules.sys.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ixiangliu.modules.sys.entity.UserRole;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * 用户与角色对应关系
  */
 @Mapper
+@Repository
 public interface UserRoleDao extends BaseMapper<UserRole> {
 	
 	/**
