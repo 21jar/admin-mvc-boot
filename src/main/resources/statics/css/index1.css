@@ -269,6 +269,7 @@
 }
 .form-group {
     margin-bottom: 15px;
+	padding-left: 0px;
 }
 .col-lg-12{
 	position: relative;
