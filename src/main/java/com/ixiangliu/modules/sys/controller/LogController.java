@@ -3,6 +3,7 @@ package com.ixiangliu.modules.sys.controller;
 import com.ixiangliu.common.utils.PageUtils;
 import com.ixiangliu.common.utils.Result;
 import com.ixiangliu.modules.sys.service.ILogService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import java.util.Map;
 /**
  * 系统日志
  */
+@Slf4j
 @Controller
 @RequestMapping("/sys/log")
 public class LogController {

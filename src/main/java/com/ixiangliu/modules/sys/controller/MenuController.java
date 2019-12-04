@@ -7,6 +7,7 @@ import com.ixiangliu.common.utils.Result;
 import com.ixiangliu.modules.sys.entity.Menu;
 import com.ixiangliu.modules.sys.service.IMenuService;
 import com.ixiangliu.modules.sys.shiro.ShiroUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
 /**
  * 系统用户
  */
+@Slf4j
 @RestController
 @RequestMapping("/sys/menu")
 public class MenuController {

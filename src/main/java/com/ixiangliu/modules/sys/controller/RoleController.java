@@ -6,6 +6,7 @@ import com.ixiangliu.modules.sys.entity.Role;
 import com.ixiangliu.modules.sys.service.IRoleDeptService;
 import com.ixiangliu.modules.sys.service.IRoleMenuService;
 import com.ixiangliu.modules.sys.service.IRoleService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.Map;
 /**
  * 角色管理
  */
+@Slf4j
 @RestController
 @RequestMapping("/sys/role")
 public class RoleController {

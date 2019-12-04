@@ -4,6 +4,7 @@ import com.ixiangliu.common.utils.PageUtils;
 import com.ixiangliu.common.utils.Result;
 import com.ixiangliu.modules.sys.entity.Dict;
 import com.ixiangliu.modules.sys.service.IDictService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.Map;
 /**
  * 数据字典
  */
+@Slf4j
 @RestController
 @RequestMapping("sys/dict")
 public class DictController {

@@ -8,6 +8,7 @@ import com.ixiangliu.modules.sys.entity.User;
 import com.ixiangliu.modules.sys.service.IUserRoleService;
 import com.ixiangliu.modules.sys.service.IUserService;
 import com.ixiangliu.modules.sys.shiro.ShiroUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -21,6 +22,7 @@ import java.util.Map;
 /**
  * 系统用户
  */
+@Slf4j
 @RestController
 @RequestMapping("/sys/user")
 public class UserController {

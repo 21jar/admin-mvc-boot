@@ -5,6 +5,7 @@ import com.ixiangliu.common.utils.Result;
 import com.ixiangliu.modules.sys.entity.Dept;
 import com.ixiangliu.modules.sys.service.IDeptService;
 import com.ixiangliu.modules.sys.shiro.ShiroUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import java.util.List;
 /**
  * 部门管理
  */
+@Slf4j
 @RestController
 @RequestMapping("/sys/dept")
 public class DeptController {

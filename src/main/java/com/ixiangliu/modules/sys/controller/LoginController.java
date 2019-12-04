@@ -2,12 +2,14 @@ package com.ixiangliu.modules.sys.controller;
 
 import com.ixiangliu.common.utils.Result;
 import com.ixiangliu.modules.sys.shiro.ShiroUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 public class LoginController {
 
