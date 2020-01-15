@@ -41,6 +41,7 @@ spring:
           config:
             multi-statement-allow: true
 
-#logging:
+logging:
+  file: my.log
 #  level:
 #    com.ixiangliu.modules.*.dao : debug
