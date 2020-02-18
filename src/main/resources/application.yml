@@ -1,11 +1,11 @@
 server:
-  port: 8080
+  port: 80
   tomcat:
     uri-encoding: UTF-8
 
 spring:
   profiles:
-    active: dev
+    active: prod
   freemarker:
     suffix: .html
     request-context-attribute: request

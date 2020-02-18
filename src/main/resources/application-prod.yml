@@ -3,15 +3,15 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
 #      allowMultiQueries=true mysql的批量更新
-#      driver-class-name: com.mysql.jdbc.Driver
-#      url: jdbc:mysql://a.com:3306/admin?characterEncoding=UTF-8
-#      username: root
-#      password: 123qweasd
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/admin?characterEncoding=UTF-8
+      username: root
+      password: 1qa2ws!@#
 
-      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-      url: jdbc:sqlserver://127.0.0.1:1433;Databasename=admin
-      username: sa
-      password: 1234qwer!
+      #      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      #      url: jdbc:sqlserver://127.0.0.1:1433;Databasename=admin
+      #      username: sa
+      #      password: 1234qwer!
 
       initial-size: 1
       max-active: 20
