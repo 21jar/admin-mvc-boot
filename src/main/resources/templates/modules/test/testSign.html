@@ -49,8 +49,8 @@
                 </div>
             </div>
             <!-- /.col -->
-            <div class="col-xs-4">
-                <button type="button" class="btn btn-primary btn-block btn-flat" @click="login">提交</button>
+            <div v-if="isSign" class="col-xs-4">
+                <button type="button" class="btn btn-primary btn-block btn-flat" @click="login" >提交</button>
             </div>
             <!-- /.col -->
         </div>
@@ -75,6 +75,7 @@
             error: false,
             errorMsg: '',
             ok: false,
+            isSign: true,
             okMsg: '',
             src: 'captcha.jpg'
         },
@@ -103,6 +104,7 @@
                     dataType: "json",
                     success: function (result) {
                         if (result.code == 0) {//登录成功
+                            vm.isSign = false;
                             vm.error = false;
                             vm.ok = true;
                             vm.okMsg = result.msg;
@@ -113,6 +115,7 @@
                             vm.errorMsg = result.msg;
                             vm.refreshCode();
                         }
+
                     }
                 });
             }

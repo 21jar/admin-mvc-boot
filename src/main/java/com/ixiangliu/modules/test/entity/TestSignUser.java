@@ -17,14 +17,16 @@ public class TestSignUser implements Serializable {
 
 	@TableId
 	private Long id;
-	@NotBlank(message="姓名不能为空")
-	private String name;
-	@NotBlank(message="温度不能为空")
-	private float temperature;
-	private String code;
-	private String deptName;
-	private String phone;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date date;
-	private String remark;
+	private Long no;
+	private String deptName;
+	@NotBlank(message="姓名不能为空")
+	private String name;
+	private String official;
+	private String retail;
+	private String phone;
+	private String floor;
+	private Float temperatureStart;
+	private Float temperatureEnd;
 }

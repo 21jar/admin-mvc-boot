@@ -15,10 +15,8 @@ public class TestSignLog implements Serializable {
 
 	@TableId
 	private Long id;
-	private String name;
-	private String code;
-	private String deptName;
-	private String phone;
+	private Long userId;
+	private Float temperature;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date date;
 	private String remark;
