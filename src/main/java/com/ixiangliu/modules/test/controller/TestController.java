@@ -2,6 +2,7 @@ package com.ixiangliu.modules.test.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ixiangliu.common.utils.DateUtil;
+import com.ixiangliu.common.utils.PageUtils;
 import com.ixiangliu.common.utils.Result;
 import com.ixiangliu.modules.test.entity.TestSignLog;
 import com.ixiangliu.modules.test.entity.TestSignUser;
@@ -9,6 +10,7 @@ import com.ixiangliu.modules.test.service.ITestSignLogService;
 import com.ixiangliu.modules.test.service.ITestSignUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +33,7 @@ public class TestController {
      * 列表
      */
     @RequestMapping("/sign")
-    public Result list(@RequestParam Map<String, Object> params){
+    public Result sign(@RequestParam Map<String, Object> params){
         if (params == null || StringUtils.isBlank((String)params.get("name"))|| StringUtils.isBlank((String)params.get("temperature"))) {
             return Result.error("请输入姓名和温度");
         }
@@ -58,6 +60,16 @@ public class TestController {
             return Result.error("您的体温高于37.3");
         }
         return Result.ok("已通过，时间："+ DateUtil.formatDate(new Date(), DateUtil.HH_MM_SS));
+    }
+
+    /**
+     * 列表
+     */
+    @RequestMapping("/signUser/list")
+    @RequiresPermissions("test:signUser:list")
+    public Result list(@RequestParam Map<String, Object> params){
+        PageUtils page = iTestSignUserService.queryPage(params);
+        return Result.ok().put("page", page);
     }
 
 }

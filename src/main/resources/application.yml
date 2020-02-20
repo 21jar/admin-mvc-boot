@@ -2,10 +2,12 @@ server:
   port: 80
   tomcat:
     uri-encoding: UTF-8
+  #解决HTTP method names must be tokens的问题
+  max-http-header-size: 8096
 
 spring:
   profiles:
-    active: prod
+    active: dev
   freemarker:
     suffix: .html
     request-context-attribute: request
