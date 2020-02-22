@@ -5,10 +5,10 @@ $(function () {
         colModel: [
 			{ label: '日期', name: 'date', index: 'date', width: 80 },
 			{ label: '编号', name: 'no', index: 'no', width: 80 },
-			{ label: '部门', name: 'deptName', index: 'deptName', width: 80 },
+			{ label: '部门', name: 'deptName', index: 'dept_name', width: 80 },
 			{ label: '姓名', name: 'name', index: 'name', width: 80 },
-			{ label: '最初温度', name: 'temperatureStart', index: 'temperatureStart', width: 80 },
-			{ label: '最终温度', name: 'temperatureEnd', index: 'temperatureEnd', width: 80 }
+			{ label: '最初温度', name: 'temperatureStart', index: 'temperature_start', width: 80 },
+			{ label: '最终温度', name: 'temperatureEnd', index: 'temperature_end', width: 80 }
 		],
 		viewrecords: true,
         height: 385,
@@ -117,7 +117,7 @@ var vm = new Vue({
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{
-                postData:{'name': vm.q.name},
+                postData:{'name': vm.q.name,'date':vm.q.date},
                 page:page
             }).trigger("reloadGrid");
 		}

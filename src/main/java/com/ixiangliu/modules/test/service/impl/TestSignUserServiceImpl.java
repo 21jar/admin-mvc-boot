@@ -20,11 +20,12 @@ public class TestSignUserServiceImpl extends ServiceImpl<TestSignUserDao, TestSi
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         String name = (String)params.get("name");
+        String date = (String)params.get("date");
 
         IPage<TestSignUser> page = this.page(
                 new Query<TestSignUser>().getPage(params),
                 new QueryWrapper<TestSignUser>()
-                        .like(StringUtils.isNotBlank(name),"name", name)
+                        .like(StringUtils.isNotBlank(name),"name", name).eq(StringUtils.isNotBlank(date),"date", date)
         );
 
         return new PageUtils(page);
