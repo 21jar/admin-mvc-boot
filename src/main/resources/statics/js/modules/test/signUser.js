@@ -41,15 +41,72 @@ var vm = new Vue({
 	el:'#rrapp',
 	data:{
         q:{
-            name: null
+            name: "",
+			date: ""
         },
+		uploadData: null,
 		showList: true,
+		showUpload: true,
 		title: null,
 		signUser: {}
 	},
 	methods: {
 		query: function () {
 			vm.reload();
+		},
+		download: function (event) {
+			top.layer.confirm('确认要导出Excel吗?', {icon: 3, title:'系统提示'}, function(index){
+				//do something
+				//导出之前备份
+				// var url =  $("#searchForm").attr("action");
+				// $("#searchForm").attr("action","${url}");
+				// $("#searchForm").submit();
+				//
+				// //导出excel之后还原
+				// $("#searchForm").attr("action",url);
+				// top.layer.close(index);
+				window.location.href=baseURL + "test/signUser/download?name="+vm.q.name+"&date="+vm.q.date;
+				top.layer.close(index);
+			});
+			// $.get(baseURL + "test/signUser/download", {'name': vm.q.name,'date':vm.q.date});
+		},
+		upload: function (event) {
+			top.layer.open({
+				type: 1,
+				area: [500, 300],
+				title:"导入数据",
+				content:$("#importBox").html() ,
+				btn: ['下载模板','确定', '关闭'],
+				btn1: function(index, layero){
+					$.get(baseURL + "test/signUser/template/");
+				},
+				btn2: function(index, layero){
+					var uploadFile = top.$("#uploadFile")[0].files[0];
+					var formData = new FormData();//这里需要实例化一个FormData来进行文件上传
+					formData.append("file",top.$("#uploadFile")[0].files[0]);
+					$.ajax({
+						type: "POST",
+						url: baseURL + "test/signUser/upload",
+						contentType: false,
+						data: formData,
+						processData : false,
+						success: function(r){
+							if(r.code === 0){
+								alert('上传成功', function(index){
+									vm.reload();
+								});
+							}else{
+								alert(r.msg);
+							}
+						}
+					});
+					top.layer.close(index);
+				},
+
+				btn3: function(index){
+					top.layer.close(index);
+				}
+			});
 		},
 		add: function(){
 			vm.showList = false;
