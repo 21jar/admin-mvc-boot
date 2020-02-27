@@ -91,7 +91,8 @@
                 this.src = "captcha.jpg?t=" + $.now();
             },
             login: function (event) {
-                var data = "username=" + vm.username + "&password=" + vm.password + "&captcha=" + vm.captcha;
+                // encodeURI解决特殊字符 % & 转义后台收到null
+                var data = "username=" + vm.username + "&password=" + encodeURI(vm.password) + "&captcha=" + vm.captcha;
                 $.ajax({
                     type: "POST",
                     url: "/sys/login",

@@ -3,7 +3,7 @@ server:
   tomcat:
     uri-encoding: UTF-8
   #解决HTTP method names must be tokens的问题
-  max-http-header-size: 8096
+  max-http-header-size: 16KB
 
 spring:
   profiles:

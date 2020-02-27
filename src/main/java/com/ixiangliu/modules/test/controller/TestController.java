@@ -30,9 +30,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 数据字典
- */
 @Slf4j
 @RestController
 @RequestMapping("test")
@@ -89,15 +86,14 @@ public class TestController {
      * 导入
      */
     @PostMapping("/signUser/upload")
-    public Result upload(MultipartFile file) throws IOException {
+    public Result upload(MultipartFile file) {
         //实例化实现了AnalysisEventListener接口的类
         ExcelListener listener = new ExcelListener();
-        //传入参数
-        EasyExcel.read(file.getInputStream(), TestSignUser.class, listener).sheet().doRead();
-        //获取数据
-        List<TestSignUser> list = listener.getDataList();
         try{
-
+            //传入参数
+            EasyExcel.read(file.getInputStream(), TestSignUser.class, listener).sheet().doRead();
+            //获取数据
+            List<TestSignUser> list = listener.getDataList();
             iTestSignUserService.saveBatch(list);
         } catch (Exception e) {
             log.error("exception:", e);
@@ -121,13 +117,6 @@ public class TestController {
         String fileName = URLEncoder.encode(date + "进入分行名单", "UTF-8");
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
         EasyExcel.write(response.getOutputStream(), TestSignUser.class).sheet("sheet1").doWrite(testSignUsers);
-
-        //这里指定需要表头，因为model通常包含表头信息
-//        ExcelWriter writer = new ExcelWriter(out, ExcelTypeEnum.XLSX,true);
-//        //写第一个sheet, sheet1  数据全是List<String> 无模型映射关系
-//        Sheet sheet1 = new Sheet(1, 0, TestSignUser.class);
-//        writer.write(testSignUsers, sheet1);
-//        writer.finish();
     }
 
 }

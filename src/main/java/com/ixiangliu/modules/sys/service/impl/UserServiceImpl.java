@@ -40,17 +40,17 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
     @Override
 //    @DataFilter(subDept = true, user = false)
     public PageUtils queryPage(Map<String, Object> params) {
-        String username = (String)params.get("username");
+        String username = (String) params.get("username");
         IPage<User> page = this.page(
                 new Query<User>().getPage(params),
                 new QueryWrapper<User>()
-                        .like(StringUtils.isNotBlank(username),"username", username)
-                        .apply(params.get(Const.SQL_FILTER) != null, (String)params.get(Const.SQL_FILTER))
+                        .like(StringUtils.isNotBlank(username), "username", username)
+                        .apply(params.get(Const.SQL_FILTER) != null, (String) params.get(Const.SQL_FILTER))
         );
 
-        for(User User : page.getRecords()){
+        for (User User : page.getRecords()) {
             Dept sysDeptEntity = iDeptService.getById(User.getDeptId());
-            User.setDeptName(sysDeptEntity.getName());
+            User.setDeptName(sysDeptEntity != null ? sysDeptEntity.getName() : "");
         }
 
         return new PageUtils(page);
@@ -73,9 +73,9 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(User user) {
-        if(StringUtils.isBlank(user.getPassword())){
+        if (StringUtils.isBlank(user.getPassword())) {
             user.setPassword(null);
-        }else{
+        } else {
             User userEntity = this.getById(user.getId());
             user.setPassword(ShiroUtils.sha256(user.getPassword(), userEntity.getSalt()));
         }
