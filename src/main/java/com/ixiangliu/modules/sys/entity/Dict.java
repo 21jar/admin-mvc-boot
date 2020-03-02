@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
- * 数据字典
+ *
  */
 @Data
 @TableName("sys_dict")

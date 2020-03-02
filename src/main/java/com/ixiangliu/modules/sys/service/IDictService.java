@@ -7,7 +7,7 @@ import com.ixiangliu.modules.sys.entity.Dict;
 import java.util.Map;
 
 /**
- * 数据字典
+ *
  */
 public interface IDictService extends IService<Dict> {
 

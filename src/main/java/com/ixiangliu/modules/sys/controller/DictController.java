@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 /**
- * 数据字典
+ *
  */
 @Slf4j
 @RestController
