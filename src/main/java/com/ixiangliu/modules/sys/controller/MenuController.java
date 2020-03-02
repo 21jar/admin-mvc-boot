@@ -92,10 +92,12 @@ public class MenuController {
     @RequiresPermissions("sys:menu:save")
     public Result save(@RequestBody Menu menu) {
         //数据校验
-        verifyForm(menu);
-
-        iMenuService.save(menu);
-
+        try {
+            verifyForm(menu);
+            iMenuService.save(menu);
+        } catch (Exception e) {
+            return Result.error("操作失败");
+        }
         return Result.ok();
     }
 
