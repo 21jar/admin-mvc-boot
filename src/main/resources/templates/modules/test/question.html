@@ -3,18 +3,12 @@
 <head>
     <title>问题管理</title>
 	<#include "/header.html">
+    <script type="text/javascript" src="${request.contextPath}/statics/libs/wangEditor.js"></script>
 </head>
 <body>
-
     <div id="div1">
         <p></p>
     </div>
-    <script type="text/javascript" src="${request.contextPath}/statics/libs/wangEditor.js"></script>
-    <script type="text/javascript">
-        var E = window.wangEditor
-        var editor = new E('#div1')
-        editor.create()
-    </script>
     <div id="rrapp" v-cloak>
         <div v-show="showList">
             <div class="grid-btn">

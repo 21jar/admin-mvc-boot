@@ -4,9 +4,9 @@ $(function () {
         url: baseURL + 'test/question/list',
         datatype: "json",
         colModel: [
-            {label: '标题', name: 'title', index: 'name', width: 80},
+            {label: '标题', name: 'title', index: 'title', width: 80},
             {label: '类型', name: 'type', index: 'type', width: 80},
-            {label: '内容', name: 'content', index: 'code', width: 80},
+            {label: '内容', name: 'content', index: 'content', width: 80},
             {label: '排序', name: 'orderNum', index: 'order_num', width: 80},
         ],
         viewrecords: true,
@@ -34,12 +34,13 @@ $(function () {
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
-
-
-
 });
 
-
+var E = window.wangEditor
+var editor = new E('#div1')
+// editor.customConfig.uploadImgShowBase64 = true
+editor.customConfig.uploadImgServer = '/upload'
+editor.create()
 
 var vm = new Vue({
     el: '#rrapp',
@@ -60,7 +61,7 @@ var vm = new Vue({
             vm.title = "新增";
             vm.question = {};
 			$("#div1").show();
-            editor.txt.html();
+            editor.txt.html("");
         },
         update: function (event) {
             $("#div1").show();
