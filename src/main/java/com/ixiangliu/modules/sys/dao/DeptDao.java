@@ -10,8 +10,6 @@ import java.util.Map;
 
 /**
  * 部门管理
- *
- * @author Mark sunlightcs@gmail.com
  */
 @Mapper
 @Repository
