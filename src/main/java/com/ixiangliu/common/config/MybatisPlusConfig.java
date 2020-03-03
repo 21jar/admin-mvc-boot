@@ -1,4 +1,4 @@
-package com.ixiangliu.modules.sys.config;
+package com.ixiangliu.common.config;
 
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;

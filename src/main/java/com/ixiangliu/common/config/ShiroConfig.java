@@ -1,4 +1,4 @@
-package com.ixiangliu.modules.sys.config;
+package com.ixiangliu.common.config;
 
 import com.ixiangliu.modules.sys.shiro.UserRealm;
 import org.apache.shiro.mgt.SecurityManager;

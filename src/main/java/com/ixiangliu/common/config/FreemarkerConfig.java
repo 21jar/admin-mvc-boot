@@ -1,4 +1,4 @@
-package com.ixiangliu.modules.sys.config;
+package com.ixiangliu.common.config;
 
 import com.ixiangliu.modules.sys.shiro.ShiroTag;
 import org.springframework.context.annotation.Bean;
