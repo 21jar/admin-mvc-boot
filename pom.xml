@@ -40,6 +40,8 @@
 
         <jedis.version>2.9.0</jedis.version>
 
+        <aliyun.oss.version>3.5.0</aliyun.oss.version>
+
     </properties>
 
     <dependencies>
@@ -160,7 +162,11 @@
             <version>${jedis.version}</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>${aliyun.oss.version}</version>
+        </dependency>
 
     </dependencies>
 

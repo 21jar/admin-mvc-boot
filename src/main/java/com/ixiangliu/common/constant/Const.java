@@ -1,6 +1,34 @@
 package com.ixiangliu.common.constant;
 
 public class Const {
+
+    // 云存储配置KEY
+    public final static String CLOUD_STORAGE_CONFIG_KEY = "CLOUD_STORAGE_CONFIG_KEY";
+
+    /**
+     * 云服务商
+     */
+    public enum CloudService {
+        /**
+         * 阿里云
+         */
+        ALIYUN(2),
+        /**
+         * 腾讯云
+         */
+        QCLOUD(3);
+
+        private int value;
+
+        CloudService(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
     // 超级管理员ID
     public static final int SUPER_ADMIN = 1;
     // 数据权限过滤
