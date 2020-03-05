@@ -7,23 +7,18 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ixiangliu.common.exception.BizException;
 import com.ixiangliu.common.utils.PageUtils;
 import com.ixiangliu.common.utils.Query;
-import com.ixiangliu.modules.sys.controller.ConfigRedis;
 import com.ixiangliu.modules.sys.dao.ConfigDao;
 import com.ixiangliu.modules.sys.entity.Config;
 import com.ixiangliu.modules.sys.service.IConfigService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Map;
 
-@Service
+@Service("configService")
 public class ConfigServiceImpl extends ServiceImpl<ConfigDao, Config> implements IConfigService {
-
-	@Autowired
-	private ConfigRedis configRedis;
 
 	@Override
 	public PageUtils queryPage(Map<String, Object> params) {
@@ -42,21 +37,21 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigDao, Config> implements
 	@Override
 	public void saveConfig(Config config) {
 		this.save(config);
-		configRedis.saveOrUpdate(config);
+//		configRedis.saveOrUpdate(config);
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void update(Config config) {
 		this.updateById(config);
-		configRedis.saveOrUpdate(config);
+//		configRedis.saveOrUpdate(config);
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void updateValueByKey(String key, String value) {
 		baseMapper.updateValueByKey(key, value);
-		configRedis.delete(key);
+//		configRedis.delete(key);
 	}
 
 	@Override
@@ -64,7 +59,7 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigDao, Config> implements
 	public void deleteBatch(Long[] ids) {
 		for(Long id : ids){
 			Config config = this.getById(id);
-			configRedis.delete(config.getParamKey());
+//			configRedis.delete(config.getParamKey());
 		}
 
 		this.removeByIds(Arrays.asList(ids));
@@ -72,10 +67,11 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigDao, Config> implements
 
 	@Override
 	public String getValue(String key) {
-		Config config = configRedis.get(key);
+//		Config config = configRedis.get(key);
+		Config config = null;
 		if(config == null){
 			config = baseMapper.queryByKey(key);
-			configRedis.saveOrUpdate(config);
+//			configRedis.saveOrUpdate(config);
 		}
 
 		return config == null ? null : config.getParamValue();
