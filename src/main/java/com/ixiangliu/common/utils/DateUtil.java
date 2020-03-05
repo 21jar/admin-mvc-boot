@@ -18,14 +18,17 @@ public class DateUtil {
     public static final String YYYY_MM = "yyyy-MM";
 
     /**
-     * 格式化日期
-     * @param date
-     * @param format
-     * @return
+     * 日期格式化 日期格式为：yyyy-MM-dd
+     * @param date  日期
+     * @param format  格式，如：DateUtil.YYYY_MM_DD
+     * @return  返回yyyy-MM-dd格式日期
      */
     public static String formatDate(Date date, String format){
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat(format);
-        return simpleDateFormat.format(date);
+        if(date != null){
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat(format);
+            return simpleDateFormat.format(date);
+        }
+        return null;
     }
 
     public static Date parseDate(String dateStr, String format) throws ParseException {
