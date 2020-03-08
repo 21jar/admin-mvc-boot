@@ -20,7 +20,7 @@ public abstract class CloudStorageService {
      * @param suffix 后缀
      * @return 返回上传路径
      */
-    public String getPath(String prefix, String suffix) {
+    public static String getPath(String prefix, String suffix) {
         //生成uuid
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
         //文件路径

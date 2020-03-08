@@ -32,6 +32,15 @@ $(function () {
         gridComplete: function () {
             //隐藏grid底部滚动条
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
+            $(".td").css({ "text-overflow" : "ellipsis" });
+            // 表格到底部，行高平分
+            var height = $(window).height() - 130;
+            $("#jqGrid").setGridHeight(height);
+            var grid = $("#jqGrid");
+            var ids = grid.getDataIDs();
+            for (var i = 0; i < ids.length; i++) {
+                grid.setRowData(ids[i], false, { height : height/10 });
+            }
         }
     });
 });
@@ -39,7 +48,9 @@ $(function () {
 var E = window.wangEditor
 var editor = new E('#div1')
 // editor.customConfig.uploadImgShowBase64 = true
-editor.customConfig.uploadImgServer = '/upload'
+editor.customConfig.uploadImgServer = '/sys/oss/uploadList'
+// 要跟后台参数名一致
+editor.customConfig.uploadFileName = 'files';
 editor.create()
 
 var vm = new Vue({
@@ -64,14 +75,13 @@ var vm = new Vue({
             editor.txt.html("");
         },
         update: function (event) {
-            $("#div1").show();
             var id = getSelectedRow();
             if (id == null) {
                 return;
             }
             vm.showList = false;
             vm.title = "修改";
-
+            $("#div1").show();
             vm.getInfo(id)
         },
         saveOrUpdate: function (event) {

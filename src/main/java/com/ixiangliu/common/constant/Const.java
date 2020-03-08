@@ -9,6 +9,7 @@ public class Const {
      * 云服务商
      */
     public enum CloudService {
+        LOCAL(1),
         /**
          * 阿里云
          */

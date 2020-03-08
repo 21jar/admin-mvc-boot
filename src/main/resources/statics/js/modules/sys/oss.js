@@ -115,7 +115,6 @@ var vm = new Vue({
             if(ossIds == null){
                 return ;
             }
-
             confirm('确定要删除选中的记录？', function(){
                 $.ajax({
                     type: "POST",

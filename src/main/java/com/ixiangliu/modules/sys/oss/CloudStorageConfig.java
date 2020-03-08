@@ -16,7 +16,7 @@ public class CloudStorageConfig implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 类型2：阿里云  3：腾讯云
+     * 类型1: 本地 2：阿里云  3：腾讯云
      */
     @Range(min=1, max=3, message = "类型错误")
     private Integer type;
@@ -33,4 +33,7 @@ public class CloudStorageConfig implements Serializable {
     private String aliyunAccessKeySecret;
     @NotBlank(message="阿里云BucketName不能为空")
     private String aliyunBucketName;
+
+    @URL(message = "域名格式不正确")
+    private String localDomain;
 }

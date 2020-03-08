@@ -14,7 +14,8 @@ spring:
   mvc:
     static-path-pattern: /statics/**
   resources:
-    static-locations: classpath:/statics/
+    # file:/Users/slt/statics/ 映射本地存储位置
+    static-locations: classpath:/statics/,file:${web.upload-path}
 
 #mybatis
 mybatis-plus:

@@ -45,3 +45,6 @@ logging:
   file: my.log
 #  level:
 #    com.ixiangliu.modules.*.dao : debug
+
+web:
+  upload-path: /opt/uploadfile/
