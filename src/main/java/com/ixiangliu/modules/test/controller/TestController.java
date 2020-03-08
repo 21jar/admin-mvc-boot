@@ -119,4 +119,21 @@ public class TestController {
         EasyExcel.write(response.getOutputStream(), TestSignUser.class).sheet("sheet1").doWrite(testSignUsers);
     }
 
+    /**
+     * 导出
+     */
+    @RequestMapping("/signUser/downloadLog")
+    public void downloadLog(HttpServletResponse response, @RequestParam Map<String, Object> params) throws IOException {
+        String name = (String)params.get("name");
+        String date = (String)params.get("date");
+        List<TestSignLog> testSignLogs = iTestSignLogService.selectList(params);
+
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+        String fileName = URLEncoder.encode(date + "进入分行日志", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        EasyExcel.write(response.getOutputStream(), TestSignLog.class).sheet("sheet1").doWrite(testSignLogs);
+    }
+
 }
