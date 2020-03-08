@@ -280,7 +280,7 @@
 
 ::selection{background:#FF6C60;color:#fff;}
 .form-control {
-    height: 30px;
+    height: 34px;
 }
 @media (min-width: 1200px){
 	.col-lg-12 {
