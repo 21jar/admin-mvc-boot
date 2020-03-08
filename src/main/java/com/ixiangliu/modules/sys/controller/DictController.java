@@ -2,6 +2,7 @@ package com.ixiangliu.modules.sys.controller;
 
 import com.ixiangliu.common.utils.PageUtils;
 import com.ixiangliu.common.utils.Result;
+import com.ixiangliu.common.validator.ValidatorUtils;
 import com.ixiangliu.modules.sys.entity.Dict;
 import com.ixiangliu.modules.sys.service.IDictService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,6 @@ public class DictController {
         return Result.ok().put("page", page);
     }
 
-
     /**
      * 信息
      */
@@ -50,7 +50,7 @@ public class DictController {
     @RequiresPermissions("sys:dict:save")
     public Result save(@RequestBody Dict dict){
         //校验类型
-//        ValidatorUtils.validateEntity(dict);
+        ValidatorUtils.validateEntity(dict);
         iDictService.save(dict);
         return Result.ok();
     }
@@ -62,7 +62,7 @@ public class DictController {
     @RequiresPermissions("sys:dict:update")
     public Result update(@RequestBody Dict dict){
         //校验类型
-//        ValidatorUtils.validateEntity(dict);
+        ValidatorUtils.validateEntity(dict);
         iDictService.updateById(dict);
         return Result.ok();
     }
