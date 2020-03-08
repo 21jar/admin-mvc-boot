@@ -12,7 +12,7 @@ $(function () {
         rowNum: 10,
 		rowList : [10,30,50],
         rownumbers: true, 
-        rownumWidth: 25, 
+        rownumWidth: 25,
         autowidth:true,
         multiselect: true,
         pager: "#jqGridPager",
@@ -29,7 +29,15 @@ $(function () {
         },
         gridComplete:function(){
         	//隐藏grid底部滚动条
-        	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
+        	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" });
+            // 表格到底部，行高平分
+        	var height = $(window).height() - 130;
+            $("#jqGrid").setGridHeight(height);
+            var grid = $("#jqGrid");
+            var ids = grid.getDataIDs();
+            for (var i = 0; i < ids.length; i++) {
+                grid.setRowData(ids[i], false, { height : height/10 });
+            }
         }
     });
 
