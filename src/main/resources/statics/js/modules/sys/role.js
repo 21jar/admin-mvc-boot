@@ -275,7 +275,9 @@ var vm = new Vue({
         },
         reload: function () {
             vm.showList = true;
-            var page = $("#jqGrid").jqGrid('getGridParam','page');
+            // 点击查询回到第一页
+            var page = 1;
+            // var page = $("#jqGrid").jqGrid('getGridParam','page');
             $("#jqGrid").jqGrid('setGridParam',{
                 postData:{'roleName': vm.q.roleName},
                 page:page

@@ -59,7 +59,9 @@ var vm = new Vue({
 			vm.reload();
 		},
 		reload: function (event) {
-			var page = $("#jqGrid").jqGrid('getGridParam','page');
+            // 点击查询回到第一页
+            var page = 1;
+            // var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
 				postData:{'key': vm.q.key},
                 page:page
