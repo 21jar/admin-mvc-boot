@@ -20,18 +20,16 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuDao, RoleMenu> impl
 	public void saveOrUpdate(Long roleId, List<Long> menuIdList) {
 		//先删除角色与菜单关系
 		deleteBatch(new Long[]{roleId});
-
 		if(menuIdList.size() == 0){
 			return ;
 		}
-
 		//保存角色与菜单关系
 		for(Long menuId : menuIdList){
-			RoleMenu sysRoleMenuEntity = new RoleMenu();
-			sysRoleMenuEntity.setMenuId(menuId);
-			sysRoleMenuEntity.setRoleId(roleId);
+			RoleMenu roleMenu = new RoleMenu();
+			roleMenu.setMenuId(menuId);
+			roleMenu.setRoleId(roleId);
 
-			this.save(sysRoleMenuEntity);
+			this.save(roleMenu);
 		}
 	}
 
