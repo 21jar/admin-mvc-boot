@@ -3,6 +3,7 @@ package com.ixiangliu.modules.sys.controller;
 import com.ixiangliu.common.utils.Result;
 import com.ixiangliu.modules.sys.shiro.ShiroUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -16,6 +17,9 @@ public class LoginController {
     @ResponseBody
     @PostMapping("/sys/login")
     public Result loginPost(String username, String password){
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
+            Result.error("请输入用户名和密码");
+        }
         try{
             Subject subject = SecurityUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
