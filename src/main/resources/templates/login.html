@@ -94,6 +94,7 @@
                 if (vm.username == null || vm.username == "", vm.password == null || vm.password == "") {
                     vm.error = true;
                     vm.errorMsg = "请输入用户名和密码";
+                    return;
                 }
                 // encodeURI解决特殊字符 % & 转义后台收到null
                 var data = "username=" + vm.username + "&password=" + encodeURI(vm.password) + "&captcha=" + vm.captcha;
