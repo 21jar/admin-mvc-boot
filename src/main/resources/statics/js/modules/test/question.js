@@ -10,7 +10,7 @@ $(function () {
             {label: '排序', name: 'orderNum', index: 'order_num', width: 80},
         ],
         viewrecords: true,
-        height: 385,
+        height: "100%",
         rowNum: 10,
         rowList: [10, 30, 50],
         rownumbers: true,

@@ -11,7 +11,7 @@ $(function () {
 			{ label: '最终温度', name: 'temperatureEnd', index: 'temperature_end', width: 80 }
 		],
 		viewrecords: true,
-        height: 385,
+        height: "100%",
         rowNum: 10,
 		rowList : [10,30,50],
         rownumbers: true, 
