@@ -30,6 +30,8 @@ $(function () {
         gridComplete:function(){
         	//隐藏grid底部滚动条
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" });
+            // 改变表头颜色
+            $(".ui-jqgrid-labels").css({ "background" : "#ecf0f5" });
             // 表格到底部，行高平分
         	var height = $(window).height() - 130;
             $("#jqGrid").setGridHeight(height);
