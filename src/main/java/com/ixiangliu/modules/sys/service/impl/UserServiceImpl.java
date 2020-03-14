@@ -91,7 +91,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
         User user = new User();
         user.setPassword(newPassword);
         return this.update(user,
-                new QueryWrapper<User>().eq("user_id", userId).eq("password", password));
+                new QueryWrapper<User>().eq("id", userId).eq("password", password));
     }
 
 }

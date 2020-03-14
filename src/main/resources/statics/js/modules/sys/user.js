@@ -3,7 +3,7 @@ $(function () {
         url: baseURL + 'sys/user/list',
         datatype: "json",
         colModel: [			
-			{ label: '用户ID', name: 'userId', index: "user_id", width: 45, key: true },
+			{ label: '用户ID', name: 'id', index: "user_id", width: 45, key: true },
 			{ label: '用户名', name: 'username', width: 75 },
             { label: '所属部门', name: 'deptName', sortable: false, width: 75 },
 			{ label: '邮箱', name: 'email', width: 90 },
@@ -110,29 +110,29 @@ var vm = new Vue({
             })
         },
         update: function () {
-            var userId = getSelectedRow();
-            if(userId == null){
+            var id = getSelectedRow();
+            if(id == null){
                 return ;
             }
 
             vm.showList = false;
             vm.title = "修改";
 
-            vm.getUser(userId);
+            vm.getUser(id);
             //获取角色信息
             this.getRoleList();
         },
         permissions: function () {
-            var userId = getSelectedRow();
-            if(userId == null){
+            var id = getSelectedRow();
+            if(id == null){
                 return ;
             }
 
-            window.location.href=baseURL+"sys/permissions/index/"+userId;
+            window.location.href=baseURL+"sys/permissions/index/"+id;
         },
         del: function () {
-            var userIds = getSelectedRows();
-            if(userIds == null){
+            var ids = getSelectedRows();
+            if(ids == null){
                 return ;
             }
 
@@ -141,7 +141,7 @@ var vm = new Vue({
                     type: "POST",
                     url: baseURL + "sys/user/delete",
                     contentType: "application/json",
-                    data: JSON.stringify(userIds),
+                    data: JSON.stringify(ids),
                     success: function(r){
                         if(r.code == 0){
                             alert('操作成功', function(){
@@ -172,8 +172,8 @@ var vm = new Vue({
                 }
             });
         },
-        getUser: function(userId){
-            $.get(baseURL + "sys/user/info/"+userId, function(r){
+        getUser: function(id){
+            $.get(baseURL + "sys/user/info/"+id, function(r){
                 vm.user = r.user;
                 vm.user.password = null;
 

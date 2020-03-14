@@ -74,9 +74,9 @@ public class UserController {
 	/**
 	 * 用户信息
 	 */
-	@RequestMapping("/info/{userId}")
+	@RequestMapping("/info/{id}")
 	@RequiresPermissions("sys:user:info")
-	public Result info(@PathVariable("userId") Long userId){
+	public Result info(@PathVariable("id") Long userId){
 		User user = iUserService.getById(userId);
 		//获取用户所属的角色列表
 		List<Long> roleIdList = iUserRoleService.queryRoleIdList(userId);
