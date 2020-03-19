@@ -19,12 +19,12 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionDao, Question> impl
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        String name = (String)params.get("name");
+        String searchTitle = (String)params.get("searchTitle");
 
         IPage<Question> page = this.page(
             new Query<Question>().getPage(params),
             new QueryWrapper<Question>()
-                .like(StringUtils.isNotBlank(name),"name", name)
+                .like(StringUtils.isNotBlank(searchTitle),"title", searchTitle)
         );
 
         return new PageUtils(page);

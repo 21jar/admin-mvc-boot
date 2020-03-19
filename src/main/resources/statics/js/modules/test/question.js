@@ -59,7 +59,7 @@ var vm = new Vue({
     el: '#rrapp',
     data: {
         q: {
-            name: null
+            searchTitle: null
         },
         showList: true,
         title: null,
@@ -142,7 +142,7 @@ var vm = new Vue({
             var page = 1;
             // var page = $("#jqGrid").jqGrid('getGridParam','page');
             $("#jqGrid").jqGrid('setGridParam', {
-                postData: {'name': vm.q.name},
+                postData: {'searchTitle': vm.q.searchTitle},
                 page: page
             }).trigger("reloadGrid");
         }
