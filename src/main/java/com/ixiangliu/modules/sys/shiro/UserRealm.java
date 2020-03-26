@@ -16,6 +16,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -27,6 +28,9 @@ public class UserRealm extends AuthorizingRealm {
     private UserDao userDao;
     @Autowired
     private MenuDao menuDao;
+
+    @Value("publicPerms")
+    private String[] publicPerms;
 
     /**
      * 授权(验证权限时调用)
@@ -45,6 +49,8 @@ public class UserRealm extends AuthorizingRealm {
             }
         } else {
             permsList = userDao.queryAllPerms(userId);
+            // 添加所有人都可以访问的 按钮和后台访问权限
+            permsList.addAll(new ArrayList<>(Arrays.asList(publicPerms)));
         }
         //用户权限列表
         Set<String> permsSet = new HashSet<>();

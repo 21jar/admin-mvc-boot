@@ -48,3 +48,6 @@ logging:
 
 web:
   upload-path: /Users/slt/statics/
+
+publicMenu: 56,57
+publicPerms:

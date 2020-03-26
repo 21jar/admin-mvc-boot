@@ -48,3 +48,7 @@ logging:
 
 web:
   upload-path: /opt/uploadfile/
+
+
+publicMenu:
+publicPerms:

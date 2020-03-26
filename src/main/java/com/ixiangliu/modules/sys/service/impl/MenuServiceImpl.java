@@ -10,10 +10,13 @@ import com.ixiangliu.modules.sys.service.IMenuService;
 import com.ixiangliu.modules.sys.service.IRoleMenuService;
 import com.ixiangliu.modules.sys.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenuService {
@@ -27,57 +30,57 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
     @Autowired
     MenuDao menuDao;
 
+    @Value("publicMenu")
+    private String[] publicMenu;
+
     @Override
     public List<Menu> getUserMenuList(Long userId) {
         //系统管理员，拥有最高权限
-        if(userId == Const.SUPER_ADMIN){
+        if (userId == Const.SUPER_ADMIN) {
             return getAllMenuList(null);
         }
-
         //用户菜单列表
         List<Long> menuIdList = iUserService.queryAllMenuId(userId);
+        // 所有人都可以访问的 菜单（不包括按钮）
+        menuIdList.addAll(Arrays.stream(publicMenu).map(s ->Long.parseLong(s.trim())).collect(Collectors.toList()));
         return getAllMenuList(menuIdList);
     }
 
     /**
      * 获取所有菜单列表
      */
-    private List<Menu> getAllMenuList(List<Long> menuIdList){
+    private List<Menu> getAllMenuList(List<Long> menuIdList) {
         //查询根菜单列表
         List<Menu> menuList = queryListParentId(0L, menuIdList);
         //递归获取子菜单
         getMenuTreeList(menuList, menuIdList);
-
         return menuList;
     }
 
     /**
      * 递归
      */
-    private List<Menu> getMenuTreeList(List<Menu> menuList, List<Long> menuIdList){
+    private List<Menu> getMenuTreeList(List<Menu> menuList, List<Long> menuIdList) {
         List<Menu> subMenuList = new ArrayList<Menu>();
-
-        for(Menu entity : menuList){
+        for (Menu entity : menuList) {
             //目录
-            if(entity.getType() == Const.MenuType.CATALOG.getValue()){
+            if (entity.getType() == Const.MenuType.CATALOG.getValue()) {
                 entity.setList(getMenuTreeList(queryListParentId(entity.getMenuId(), menuIdList), menuIdList));
             }
             subMenuList.add(entity);
         }
-
         return subMenuList;
     }
 
     @Override
     public List<Menu> queryListParentId(Long parentId, List<Long> menuIdList) {
         List<Menu> menuList = queryListParentId(parentId);
-        if(menuIdList == null){
+        if (menuIdList == null) {
             return menuList;
         }
-
         List<Menu> userMenuList = new ArrayList<>();
-        for(Menu menu : menuList){
-            if(menuIdList.contains(menu.getMenuId())){
+        for (Menu menu : menuList) {
+            if (menuIdList.contains(menu.getMenuId())) {
                 userMenuList.add(menu);
             }
         }
@@ -95,7 +98,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
     }
 
     @Override
-    public void delete(Long menuId){
+    public void delete(Long menuId) {
         //删除菜单
         this.removeById(menuId);
         //删除菜单与角色关联
