@@ -42,6 +42,8 @@
 
         <aliyun.oss.version>3.5.0</aliyun.oss.version>
 
+        <aspectjweaver.version>1.8.7</aspectjweaver.version>
+
     </properties>
 
     <dependencies>
@@ -88,9 +90,9 @@
         </dependency>
         <!-- mapper分页包 -->
         <!--<dependency>-->
-            <!--<groupId>com.github.pagehelper</groupId>-->
-            <!--<artifactId>pagehelper-spring-boot-starter</artifactId>-->
-            <!--<version>${pagehelper.version}</version>-->
+        <!--<groupId>com.github.pagehelper</groupId>-->
+        <!--<artifactId>pagehelper-spring-boot-starter</artifactId>-->
+        <!--<version>${pagehelper.version}</version>-->
         <!--</dependency>-->
         <!-- Mysql -->
         <dependency>
@@ -166,6 +168,12 @@
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>
             <version>${aliyun.oss.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectjweaver.version}</version>
         </dependency>
 
     </dependencies>

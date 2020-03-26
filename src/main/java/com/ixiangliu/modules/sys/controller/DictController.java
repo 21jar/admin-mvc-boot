@@ -1,5 +1,6 @@
 package com.ixiangliu.modules.sys.controller;
 
+import com.ixiangliu.common.annotation.SysLog;
 import com.ixiangliu.common.utils.PageUtils;
 import com.ixiangliu.common.utils.Result;
 import com.ixiangliu.common.validator.ValidatorUtils;
@@ -46,6 +47,7 @@ public class DictController {
     /**
      * 保存
      */
+    @SysLog("新增字典")
     @RequestMapping("/save")
     @RequiresPermissions("sys:dict:save")
     public Result save(@RequestBody Dict dict){
