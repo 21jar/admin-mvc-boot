@@ -66,19 +66,9 @@ var vm = new Vue({
 		},
 		download: function (event) {
 			top.layer.confirm('确认要导出Excel吗?', {icon: 3, title:'系统提示'}, function(index){
-				//do something
-				//导出之前备份
-				// var url =  $("#searchForm").attr("action");
-				// $("#searchForm").attr("action","${url}");
-				// $("#searchForm").submit();
-				//
-				// //导出excel之后还原
-				// $("#searchForm").attr("action",url);
-				// top.layer.close(index);
 				window.location.href=baseURL + "test/signUser/download?name="+vm.q.name+"&date="+vm.q.date;
 				top.layer.close(index);
 			});
-			// $.get(baseURL + "test/signUser/download", {'name': vm.q.name,'date':vm.q.date});
 		},
 		downloadLog: function (event) {
 			top.layer.confirm('确认要导出Excel吗?', {icon: 3, title:'系统提示'}, function(index){
