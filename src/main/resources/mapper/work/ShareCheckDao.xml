@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ixiangliu.modules.work.dao.ShareCheckDao">
+
+    <select id="findList" resultType="com.ixiangliu.modules.work.entity.ShareCheck">
+        SELECT
+        a.*
+        FROM work_share_check a
+        left join sys_user b on a.um = b.username
+        WHERE true
+        <if test="um != null and um != ''">
+            and a.um = #{um}
+        </if>
+        <if test="deptName != null and deptName != ''">
+            and b.dept_name = #{deptName}
+        </if>
+    </select>
+
+</mapper>
