@@ -1,5 +1,6 @@
 package com.ixiangliu.modules.sys.controller;
 
+import com.ixiangliu.common.annotation.SysLog;
 import com.ixiangliu.common.utils.Result;
 import com.ixiangliu.modules.sys.shiro.ShiroUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -8,12 +9,16 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Slf4j
 @Controller
 public class LoginController {
 
+    @SysLog("登陆")
     @ResponseBody
     @PostMapping("/sys/login")
     public Result loginPost(String username, String password){

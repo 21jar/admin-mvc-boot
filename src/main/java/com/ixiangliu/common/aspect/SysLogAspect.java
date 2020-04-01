@@ -29,8 +29,9 @@ public class SysLogAspect {
 	@Autowired
 	private ILogService iLogService;
 	
+//	@Pointcut("execution(* com.ixiangliu.modules..*.*(..))")
 	@Pointcut("@annotation(com.ixiangliu.common.annotation.SysLog)")
-	public void logPointCut() { 
+	public void logPointCut() {
 		
 	}
 
@@ -72,10 +73,13 @@ public class SysLogAspect {
 		//设置IP地址
 		log.setIp(IPUtils.getIpAddr(request));
 		//用户名
-		String username = ((User) SecurityUtils.getSubject().getPrincipal()).getUsername();
+		User user = ((User) SecurityUtils.getSubject().getPrincipal());
+		String username = user == null ? null : user.getUsername();
 		log.setUsername(username);
 		log.setTime(time);
 		log.setCreateDate(new Date());
+		request.getRequestURI();
+		request.getMethod();
 		//保存系统日志
 		iLogService.save(log);
 	}
