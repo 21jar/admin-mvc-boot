@@ -30,7 +30,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements IMenu
     @Autowired
     MenuDao menuDao;
 
-    @Value("publicMenu")
+    @Value("${publicMenu}")
     private String[] publicMenu;
 
     @Override

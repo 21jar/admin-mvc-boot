@@ -29,7 +29,7 @@ public class UserRealm extends AuthorizingRealm {
     @Autowired
     private MenuDao menuDao;
 
-    @Value("publicPerms")
+    @Value("${publicPerms}")
     private String[] publicPerms;
 
     /**
