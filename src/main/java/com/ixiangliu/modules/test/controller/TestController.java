@@ -1,11 +1,8 @@
 package com.ixiangliu.modules.test.controller;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.ExcelReader;
-import com.alibaba.excel.ExcelWriter;
-import com.alibaba.excel.metadata.Sheet;
-import com.alibaba.excel.support.ExcelTypeEnum;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.ixiangliu.common.annotation.SysLog;
 import com.ixiangliu.common.excel.ExcelListener;
 import com.ixiangliu.common.utils.DateUtil;
 import com.ixiangliu.common.utils.PageUtils;
@@ -16,15 +13,12 @@ import com.ixiangliu.modules.test.service.ITestSignLogService;
 import com.ixiangliu.modules.test.service.ITestSignUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
@@ -76,10 +70,25 @@ public class TestController {
      * 列表
      */
     @RequestMapping("/signUser/list")
-    @RequiresPermissions("test:signUser:list")
+//    @RequiresPermissions("test:signUser:list")
     public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = iTestSignUserService.queryPage(params);
         return Result.ok().put("page", page);
+    }
+
+    /**
+     * 保存
+     */
+    @SysLog("新增字典")
+    @RequestMapping("/signUser/save")
+    public Result save(@RequestBody TestSignUser testSignUser){
+        //校验类型
+        try {
+            iTestSignUserService.save(testSignUser);
+        } catch (Exception e) {
+            return Result.error("新增失败:日期+姓名不能重复");
+        }
+        return Result.ok();
     }
 
     /**
