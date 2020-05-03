@@ -79,7 +79,7 @@ public class TestController {
     /**
      * 保存
      */
-    @SysLog("新增字典")
+    @SysLog("新增进场人员")
     @RequestMapping("/signUser/save")
     public Result save(@RequestBody TestSignUser testSignUser){
         //校验类型
