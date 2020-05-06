@@ -16,6 +16,11 @@ public class BizException extends RuntimeException {
         this.args = args;
     }
 
+    public BizException(String code, Throwable e) {
+        super(code, e);
+        this.code = code;
+    }
+
     public String getCode() {
         return code;
     }

@@ -30,6 +30,30 @@ public class Const {
         }
     }
 
+    /**
+     * 定时任务状态
+     */
+    public enum ScheduleStatus {
+        /**
+         * 正常
+         */
+        NORMAL(0),
+        /**
+         * 暂停
+         */
+        PAUSE(1);
+
+        private int value;
+
+        ScheduleStatus(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
     // 超级管理员ID
     public static final int SUPER_ADMIN = 1;
     // 数据权限过滤
