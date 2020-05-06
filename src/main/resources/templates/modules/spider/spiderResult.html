@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<#include "/header.html">
+    <link href="${request.contextPath}/statics/plugins/json/s.css" rel="stylesheet"/>
+    <script src="${request.contextPath}/statics/plugins/json/c.js"></script>
+    <script src="${request.contextPath}/statics/plugins/json/m.js"></script>
+</head>
+<body>
+    <div id="rrapp" v-cloak>
+        <div v-show="showList">
+            <div class="grid-btn">
+                <div class="form-group col-sm-2">
+                    <input type="text" class="form-control" v-model="q.title" @keyup.enter="query" placeholder="标题  " value="米">
+                </div>
+                <a class="btn btn-default" @click="query">查询</a>
+                <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;详情</a>
+            </div>
+            <table id="jqGrid"></table>
+            <div id="jqGridPager"></div>
+        </div>
+
+        <div v-show="!showList" class="panel panel-default">
+            <div class="panel-heading">{{title}}</div>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">类型</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="spiderResult.type" placeholder="类型"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">标题</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="spiderResult.title" placeholder="标题"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">参数1</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="spiderResult.paramOne" placeholder="参数1"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">参数2</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="spiderResult.paramTwo" placeholder="参数2"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">参数3</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" v-model="spiderResult.paramThree" placeholder="参数3"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">排序号</div>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" v-model="spiderResult.orderNum" placeholder="排序号"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">详情</div>
+                    <div class="col-sm-10">
+<!--                        <input type="text" class="form-control" v-model="spiderResult.detail" placeholder="详情"/>-->
+                        <div class="HeadersRow">
+                            <textarea style="height:150px;width:150%;overflow:auto;" id="RawJson" v-model="spiderResult.detail"></textarea>
+                        </div>
+                        <div id="ControlsRow">
+                            <input type="Button" value="格式化" onclick="Process()"/>
+                            <span id="TabSizeHolder">缩进量
+                                <select id="TabSize" onchange="TabSizeChanged()">
+                                  <option value="1">1</option>
+                                  <option value="2" selected="true">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                  <option value="6">6</option>
+                                </select>
+                            </span>
+                            <label for="QuoteKeys">
+                                <input type="checkbox" id="QuoteKeys" onclick="QuoteKeysClicked()" checked="true" />
+                                引号
+                            </label>&nbsp;
+                            <a href="javascript:void(0);" onclick="SelectAllClicked()">全选</a>
+                            <span id="CollapsibleViewHolder" >
+                                  <label for="CollapsibleView">
+                                    <input type="checkbox" id="CollapsibleView" onclick="CollapsibleViewClicked()" checked="true" />
+                                    显示控制
+                                  </label>
+                            </span>
+                            <span id="CollapsibleViewDetail">
+                                <a href="javascript:void(0);" onclick="ExpandAllClicked()">展开</a>
+                                <a href="javascript:void(0);" onclick="CollapseAllClicked()">叠起</a>
+                                <a href="javascript:void(0);" onclick="CollapseLevel(3)">2级</a>
+                                <a href="javascript:void(0);" onclick="CollapseLevel(4)">3级</a>
+                                <a href="javascript:void(0);" onclick="CollapseLevel(5)">4级</a>
+                                <a href="javascript:void(0);" onclick="CollapseLevel(6)">5级</a>
+                                <a href="javascript:void(0);" onclick="CollapseLevel(7)">6级</a>
+                                <a href="javascript:void(0);" onclick="CollapseLevel(8)">7级</a>
+                                <a href="javascript:void(0);" onclick="CollapseLevel(9)">8级</a>
+                            </span>
+                        </div>
+                        <div id="Canvas" style="width: 150%" class="Canvas"></div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label"></div>
+                    <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+                    &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="${request.contextPath}/statics/js/modules/spider/spiderResult.js?_${.now?long}"></script>
+</body>
+</html>
