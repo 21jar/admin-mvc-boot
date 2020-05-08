@@ -44,6 +44,12 @@
 
         <aspectjweaver.version>1.8.7</aspectjweaver.version>
 
+        <dom4j.version>1.6.1</dom4j.version>
+
+        <xstream.version>1.4.10</xstream.version>
+
+        <httpclient.version>4.5.11</httpclient.version>
+
     </properties>
 
     <dependencies>
@@ -182,23 +188,23 @@
             <artifactId>spring-boot-starter-quartz</artifactId>
         </dependency>
 
-        <!--爬虫框架-->
-        <dependency>
-            <groupId>cn.edu.hfut.dmic.webcollector</groupId>
-            <artifactId>WebCollector</artifactId>
-            <version>2.71</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
+            <version>${dom4j.version}</version>
         </dependency>
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.7</version>
+            <version>${xstream.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
         </dependency>
 
     </dependencies>

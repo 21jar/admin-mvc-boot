@@ -23,6 +23,6 @@ public class SpiderResult implements Serializable {
 	private String paramTwo;
 	private String paramThree;
 	private String paramId;
-	private Float orderNum;
+	private float orderNum;
 
 }

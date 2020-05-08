@@ -2,8 +2,9 @@ server:
   port: 80
   tomcat:
     uri-encoding: UTF-8
-  #解决HTTP method names must be tokens的问题
-  max-http-header-size: 16KB
+  servlet:
+    session:
+      timeout: 43200
 
 spring:
   profiles:

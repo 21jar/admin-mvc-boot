@@ -13,7 +13,7 @@ $(function () {
 		],
 		viewrecords: true,
         height: "100%",
-        rowNum: 50,
+        rowNum: 300,
 		rowList : [10,30,50],
         rownumbers: true, 
         rownumWidth: 25, 
