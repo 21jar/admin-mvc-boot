@@ -48,7 +48,7 @@
 
         <xstream.version>1.4.10</xstream.version>
 
-        <httpclient.version>4.5.11</httpclient.version>
+        <httpclient.version>4.5.12</httpclient.version>
 
     </properties>
 
