@@ -78,3 +78,6 @@ web:
 
 publicMenu: 56,57
 publicPerms:
+
+appId: wx3d37a5106ef335f5
+appSecret: 7238e5cae5d8aabec26b93f340cf320b

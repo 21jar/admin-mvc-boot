@@ -9,11 +9,18 @@ import java.util.Map;
 public class Result extends HashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
 
-	public Result() {
+	private Result() {
 		put("code", 0);
 		put("msg", "success");
 	}
-	
+
+	public static <T> Result ok(T data, String msg) {
+		Result r = new Result();
+		r.put("data", data);
+		r.put("msg", msg);
+		return r;
+	}
+
 	public static Result error() {
 		return error(500, "未知异常，请联系管理员");
 	}

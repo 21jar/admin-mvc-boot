@@ -1,0 +1,27 @@
+package com.ixiangliu.modules.wechat.service;
+
+
+import com.ixiangliu.modules.wechat.dto.*;
+
+import java.util.Map;
+
+public interface IWechatService {
+
+    AccessToken accessToken(String appId, String appSecret);
+
+    QrCodeResult createQrCode(QrCode qrCode, String appId, String appSecret);
+
+    String downloadQrCode(String ticket);
+
+    boolean signature(String signature, String timestamp, String nonce);
+
+    BaseResult sendTemplateMsg(TemplateMessage templateMessage, String appId, String appSecret);
+
+    BaseResult sendTemplateMsg(TemplateMessage templateMessage);
+
+    void createMenu(String fileName, String appId, String appSecret);
+
+    WechatUserInfo getUserInfo(String appId, String appSecret, String openid);
+
+    Map oauth2GetAccesstoken(String appId, String appSecret, String code);
+}
