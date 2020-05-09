@@ -17,8 +17,6 @@ public interface IWechatService {
 
     BaseResult sendTemplateMsg(TemplateMessage templateMessage, String appId, String appSecret);
 
-    BaseResult sendTemplateMsg(TemplateMessage templateMessage);
-
     void createMenu(String fileName, String appId, String appSecret);
 
     WechatUserInfo getUserInfo(String appId, String appSecret, String openid);
