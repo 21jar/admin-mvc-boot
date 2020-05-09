@@ -9,7 +9,8 @@ $(function () {
 			{ label: '库存', name: 'paramOne', index: 'param_one', width: 80 }	,
 			{ label: '网址', name: 'paramTwo', index: 'param_two', width: 80 },
 			{ label: '价格', name: 'paramThree', index: 'param_three', width: 80 },
-			{ label: '排序', name: 'orderNum', index: 'order_num', width: 80 }
+			{ label: '排序', name: 'orderNum', index: 'order_num', width: 80 },
+			{ label: '备注', name: 'remark', index: 'remark', width: 80 }
 		],
 		viewrecords: true,
         height: "100%",

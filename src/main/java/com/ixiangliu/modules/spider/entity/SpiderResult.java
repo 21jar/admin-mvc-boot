@@ -24,5 +24,6 @@ public class SpiderResult implements Serializable {
 	private String paramThree;
 	private String paramId;
 	private float orderNum;
+	private String remark;
 
 }
