@@ -24,7 +24,7 @@ public class SpiderResultServiceImpl extends ServiceImpl<SpiderResultDao, Spider
 
         IPage<SpiderResult> page = this.page(
             new Query<SpiderResult>().getPage(params),
-            new QueryWrapper<SpiderResult>().like(StringUtils.isNotBlank(title),"title", title).orderByDesc(StringUtils.isBlank(sidx),"param_one desc,order_num"));
+            new QueryWrapper<SpiderResult>().like(StringUtils.isNotBlank(title),"title", title).orderByAsc(StringUtils.isBlank(sidx),"param_one desc,order_num desc,param_three"));
 
         return new PageUtils(page);
     }

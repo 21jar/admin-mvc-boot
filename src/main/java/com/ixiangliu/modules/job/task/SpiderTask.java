@@ -17,6 +17,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -37,6 +38,12 @@ public class SpiderTask implements ITask {
 	@Autowired
 	ISpiderResultService iSpiderResultService;
 
+	@Value("${appId}")
+	private String appId;
+
+	@Value("${appSecret}")
+	private String appSecret;
+
 	@Override
 	public void run(String params){
 		Random random = new Random();
@@ -54,7 +61,8 @@ public class SpiderTask implements ITask {
 	public void http () {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		// 请求
-		HttpGet httpGet = new HttpGet("www.baidu.com");
+		Long longtimeNew=System.currentTimeMillis();
+		HttpGet httpGet = new HttpGet("https://gzgsv.xpshop.cn/vshop_List.aspx?type=ajax&Action=GetProductList&BrandID=0&sid=-1&subcat=0&lp=0&hp=0&k=keyword&OrderSort=1&p=&page=1&Size=1000&_="+longtimeNew);
 		// 响应
 		CloseableHttpResponse response = null;
 		try {
@@ -82,7 +90,7 @@ public class SpiderTask implements ITask {
 				spiderResult.setParamId(product.get("productid").toString());
 				iSpiderResultService.saveOrUpdate(spiderResult);
 				if (spiderResult.getOrderNum() > 0 && spiderResult.getParamOne().equals("1")){
-//					send(spiderResult.getParamTwo(),spiderResult.getTitle());
+					send(spiderResult.getParamTwo(),spiderResult.getTitle());
 				}
 			});
 			log.info("数据保存成功");
@@ -112,7 +120,7 @@ public class SpiderTask implements ITask {
 		map.put("title",new TemplateMessage.KeyWord(title));
 		map.put("url",new TemplateMessage.KeyWord(url));
 		msg.setData(map);
-		BaseResult flag = iWechatService.sendTemplateMsg(msg);
+		BaseResult flag = iWechatService.sendTemplateMsg(msg, appId, appSecret);
 		System.out.println(flag);
 	}
 }
