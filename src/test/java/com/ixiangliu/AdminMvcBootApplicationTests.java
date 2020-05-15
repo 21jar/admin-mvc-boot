@@ -1,5 +1,8 @@
 package com.ixiangliu;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.ixiangliu.modules.sys.entity.Config;
+import com.ixiangliu.modules.sys.service.IConfigService;
 import com.ixiangliu.modules.wechat.dto.BaseResult;
 import com.ixiangliu.modules.wechat.dto.TemplateMessage;
 import com.ixiangliu.modules.wechat.service.IWechatService;
@@ -33,6 +36,9 @@ public class AdminMvcBootApplicationTests {
     @Value("${appSecret}")
     private String appSecret;
 
+    @Autowired
+    private IConfigService iConfigService;
+
     @Test
     public void contextLoads() {
     }
@@ -57,7 +63,9 @@ public class AdminMvcBootApplicationTests {
     public void test3() {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         // 请求
-        HttpGet httpGet = new HttpGet("https://www.baidu.com");
+        Config config = iConfigService.getOne(new QueryWrapper<Config>().eq("param_key", "GUIGAOSU"));
+        String guiUrl = config.getParamValue();
+        HttpGet httpGet = new HttpGet(guiUrl + "/products/product-1002563.html");
         // 响应
         CloseableHttpResponse response = null;
         try {

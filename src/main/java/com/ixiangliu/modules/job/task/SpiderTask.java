@@ -3,9 +3,12 @@ package com.ixiangliu.modules.job.task;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.ixiangliu.common.utils.DateUtil;
 import com.ixiangliu.common.utils.SpringContextUtils;
 import com.ixiangliu.modules.spider.entity.SpiderResult;
 import com.ixiangliu.modules.spider.service.ISpiderResultService;
+import com.ixiangliu.modules.sys.entity.Config;
+import com.ixiangliu.modules.sys.service.IConfigService;
 import com.ixiangliu.modules.wechat.dto.BaseResult;
 import com.ixiangliu.modules.wechat.dto.TemplateMessage;
 import com.ixiangliu.modules.wechat.service.IWechatService;
@@ -13,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -22,9 +26,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * 测试定时任务(演示Demo，可删除)
@@ -37,6 +39,9 @@ public class SpiderTask implements ITask {
 
 	@Autowired
 	ISpiderResultService iSpiderResultService;
+
+	@Autowired
+	private IConfigService iConfigService;
 
 	@Value("${appId}")
 	private String appId;
@@ -62,7 +67,9 @@ public class SpiderTask implements ITask {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		// 请求
 		Long longtimeNew=System.currentTimeMillis();
-		HttpGet httpGet = new HttpGet("https://gzgsv.xpshop.cn/vshop_List.aspx?type=ajax&Action=GetProductList&BrandID=0&sid=-1&subcat=0&lp=0&hp=0&k=keyword&OrderSort=1&p=&page=1&Size=1000&_="+longtimeNew);
+		Config config = iConfigService.getOne(new QueryWrapper<Config>().eq("param_key", "GUIGAOSU"));
+		String guiUrl = config.getParamValue();
+		HttpGet httpGet = new HttpGet(guiUrl + "/vshop_List.aspx?type=ajax&Action=GetProductList&BrandID=0&sid=-1&subcat=0&lp=0&hp=0&k=keyword&OrderSort=1&p=&page=1&Size=1000&_="+longtimeNew);
 		// 响应
 		CloseableHttpResponse response = null;
 		try {
@@ -85,17 +92,17 @@ public class SpiderTask implements ITask {
 				spiderResult.setType("guigaosu_maotai");
 				spiderResult.setTitle(product.get("productname").toString());
 				spiderResult.setParamOne(product.get("Storage").toString());
-				spiderResult.setParamTwo("https://gzgsv.xpshop.cn/products/product-"+product.get("productid").toString()+".html");
-				spiderResult.setParamThree(product.get("marketprice").toString());
+				spiderResult.setParamTwo(guiUrl + "/products/product-"+product.get("productid").toString()+".html");
+				spiderResult.setParamThree(product.get("memberprice").toString());
 				spiderResult.setParamId(product.get("productid").toString());
 				iSpiderResultService.saveOrUpdate(spiderResult);
 				if (spiderResult.getOrderNum() > 0 && spiderResult.getParamOne().equals("1")){
-					send(spiderResult.getParamTwo(),spiderResult.getTitle());
+					send(spiderResult);
 				}
 			});
 			log.info("数据保存成功");
 		} catch (Exception e) {
-			log.error("数据保存失败");
+			log.error("数据保存失败",e);
 		} finally {
 			try {
 				if (response != null) {
@@ -109,18 +116,60 @@ public class SpiderTask implements ITask {
 		}
 	}
 
-	public void send (String url,String title) {
+	public void send (SpiderResult spiderResult) {
 		IWechatService iWechatService = (IWechatService) SpringContextUtils.getBean("iWechatService");
 		TemplateMessage msg = new TemplateMessage();
-		msg.setTemplateId("EFVQ26kdPex2Lx8O8azydddSzHtyUG47gUS3YFqsk24");
+		msg.setTemplateId("6QytVD6ZiDD5kFcVBUtQh1WvNJwIVOMREYozcyZST_M");
 		msg.setTopcolor("#000033");
 		msg.setTouser("oa6jXwXYH6VLR_b2UIxMQK9obCtQ");
-		msg.setUrl(url);
+		msg.setUrl(spiderResult.getParamTwo());
 		Map<String, TemplateMessage.KeyWord> map = new HashMap<>();
-		map.put("title",new TemplateMessage.KeyWord(title));
-		map.put("url",new TemplateMessage.KeyWord(url));
+		map.put("title",new TemplateMessage.KeyWord(spiderResult.getTitle()));
+		map.put("price",new TemplateMessage.KeyWord(spiderResult.getParamThree()));
+		map.put("order",new TemplateMessage.KeyWord(spiderResult.getOrderNum()+""));
+		map.put("time",new TemplateMessage.KeyWord(DateUtil.formatDate(new Date(),DateUtil.YYYY_MM_DD_HH_MM_SS)));
 		msg.setData(map);
 		BaseResult flag = iWechatService.sendTemplateMsg(msg, appId, appSecret);
-		System.out.println(flag);
+		log.info(flag.toString());
+		TemplateMessage msg2 = new TemplateMessage();
+		msg2.setTemplateId("6QytVD6ZiDD5kFcVBUtQh1WvNJwIVOMREYozcyZST_M");
+		msg2.setTopcolor("#000033");
+		msg2.setTouser("oa6jXwdlydfk4Kbz2jj4LmLMEWS8");
+		msg2.setUrl(spiderResult.getParamTwo());
+		Map<String, TemplateMessage.KeyWord> map2 = new HashMap<>();
+		map2.put("title",new TemplateMessage.KeyWord(spiderResult.getTitle()));
+		map2.put("price",new TemplateMessage.KeyWord(spiderResult.getParamThree()));
+		map2.put("order",new TemplateMessage.KeyWord(spiderResult.getOrderNum()+""));
+		map2.put("time",new TemplateMessage.KeyWord(DateUtil.formatDate(new Date(),DateUtil.YYYY_MM_DD_HH_MM_SS)));
+		msg2.setData(map2);
+		BaseResult flag2 = iWechatService.sendTemplateMsg(msg2, appId, appSecret);
+		log.info(flag2.toString());
+
+	}
+
+	public static void main(String[] args) throws IOException {
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		HttpGet get=new HttpGet("/cart.html");
+		HttpClientContext context = HttpClientContext.create();
+		try {
+			CloseableHttpResponse response = httpClient.execute(get, context);
+			try{
+				System.out.println(">>>>>>headers:");
+				Arrays.stream(response.getAllHeaders()).forEach(System.out::println);
+				System.out.println(">>>>>>cookies:");
+				context.getCookieStore().getCookies().forEach(System.out::println);
+			}
+			finally {
+				response.close();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				httpClient.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
