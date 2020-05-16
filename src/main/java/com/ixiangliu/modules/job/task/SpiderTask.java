@@ -67,7 +67,7 @@ public class SpiderTask implements ITask {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		// 请求
 		Long longtimeNew=System.currentTimeMillis();
-		Config config = iConfigService.getOne(new QueryWrapper<Config>().eq("param_key", "GUIGAOSU"));
+		Config config = iConfigService.getOne(new QueryWrapper<Config>().eq("param_key", "GUI_GAO_SU"));
 		String guiUrl = config.getParamValue();
 		HttpGet httpGet = new HttpGet(guiUrl + "/vshop_List.aspx?type=ajax&Action=GetProductList&BrandID=0&sid=-1&subcat=0&lp=0&hp=0&k=keyword&OrderSort=1&p=&page=1&Size=1000&_="+longtimeNew);
 		// 响应
