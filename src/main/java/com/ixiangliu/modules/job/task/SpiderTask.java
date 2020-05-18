@@ -3,6 +3,7 @@ package com.ixiangliu.modules.job.task;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.ixiangliu.common.exception.BizException;
 import com.ixiangliu.common.utils.DateUtil;
 import com.ixiangliu.common.utils.SpringContextUtils;
 import com.ixiangliu.modules.spider.entity.SpiderResult;
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 测试定时任务(演示Demo，可删除)
@@ -53,14 +55,16 @@ public class SpiderTask implements ITask {
 	public void run(String params){
 		Random random = new Random();
 		int randNum = random.nextInt(10);
-		log.info(randNum + "");
 		try {
 			Thread.sleep(randNum*1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+			log.info("---------------------------执行定时任务开始: " + LocalDateTime.now());
+			http();
+			log.info("---------------------------执行定时任务结束: " + LocalDateTime.now());
+		} catch (Exception e) {
+			log.error("执行定时任务失败",e);
+			throw new BizException("执行定时任务失败",e);
 		}
-		log.info("执行定时任务时间: " + LocalDateTime.now());
-		http();
+
 	}
 
 	public void http () {
@@ -76,17 +80,22 @@ public class SpiderTask implements ITask {
 			response = httpClient.execute(httpGet);
 			// 响应体
 			HttpEntity responseEntity = response.getEntity();
-			log.info("响应状态：" + response.getStatusLine());
-			log.info("响应体编码方式：" + responseEntity.getContentEncoding());
-			log.info("响应体类型：" + responseEntity.getContentType());
 			String resBody = EntityUtils.toString(responseEntity);
 			JSONObject body = JSONObject.parseObject(resBody);
-			JSONArray list =  JSONObject.parseArray(body.getString("Product"));
-			list.forEach(element -> {
+			JSONArray jsonArray =  JSONObject.parseArray(body.getString("Product"));
+			List<SpiderResult> insertList = new ArrayList<>();
+			List<SpiderResult> updateList = new ArrayList<>();
+			List<SpiderResult> dbList = iSpiderResultService.list(new QueryWrapper<SpiderResult>().eq("type", "guigaosu_maotai"));
+			List<String> paramIdList = dbList.stream().map(SpiderResult::getParamId).collect(Collectors.toList());
+			jsonArray.forEach(element -> {
 				JSONObject product = (JSONObject)element;
-				SpiderResult spiderResult = iSpiderResultService.getOne(new QueryWrapper<SpiderResult>().eq("param_id", product.get("productid").toString()).eq("type", "guigaosu_maotai"));
-				if (spiderResult == null) {
+				SpiderResult spiderResult;
+				if (paramIdList.contains(product.get("productid").toString())){
+					spiderResult = dbList.stream().filter(item -> item.getParamId().equals(product.get("productid").toString())).findFirst().get();
+					updateList.add(spiderResult);
+				} else {
 					spiderResult = new SpiderResult();
+					insertList.add(spiderResult);
 				}
 				spiderResult.setDetail(product.toString());
 				spiderResult.setType("guigaosu_maotai");
@@ -100,6 +109,8 @@ public class SpiderTask implements ITask {
 					send(spiderResult);
 				}
 			});
+			iSpiderResultService.saveBatch(insertList);
+			iSpiderResultService.updateBatchById(updateList);
 			log.info("数据保存成功");
 		} catch (Exception e) {
 			log.error("数据保存失败",e);
@@ -144,7 +155,19 @@ public class SpiderTask implements ITask {
 		msg2.setData(map2);
 		BaseResult flag2 = iWechatService.sendTemplateMsg(msg2, appId, appSecret);
 		log.info(flag2.toString());
-
+		TemplateMessage msg3 = new TemplateMessage();
+		msg3.setTemplateId("6QytVD6ZiDD5kFcVBUtQh1WvNJwIVOMREYozcyZST_M");
+		msg3.setTopcolor("#000033");
+		msg3.setTouser("oa6jXwXk7bGdHIfeBVzX6rG3V9ns");
+		msg3.setUrl(spiderResult.getParamTwo());
+		Map<String, TemplateMessage.KeyWord> map3 = new HashMap<>();
+		map3.put("title",new TemplateMessage.KeyWord(spiderResult.getTitle()));
+		map3.put("price",new TemplateMessage.KeyWord(spiderResult.getParamThree()));
+		map3.put("order",new TemplateMessage.KeyWord(spiderResult.getOrderNum()+""));
+		map3.put("time",new TemplateMessage.KeyWord(DateUtil.formatDate(new Date(),DateUtil.YYYY_MM_DD_HH_MM_SS)));
+		msg3.setData(map3);
+		BaseResult flag3 = iWechatService.sendTemplateMsg(msg3, appId, appSecret);
+		log.info(flag3.toString());
 	}
 
 	public static void main(String[] args) throws IOException {

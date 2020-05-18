@@ -1,6 +1,7 @@
 package com.ixiangliu;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.ixiangliu.modules.job.task.GuiOrderTask;
 import com.ixiangliu.modules.sys.entity.Config;
 import com.ixiangliu.modules.sys.service.IConfigService;
 import com.ixiangliu.modules.wechat.dto.BaseResult;
@@ -29,6 +30,9 @@ public class AdminMvcBootApplicationTests {
 
     @Autowired
     IWechatService iWechatService;
+
+    @Autowired
+    GuiOrderTask guiOrderTask;
 
     @Value("${appId}")
     private String appId;
@@ -103,6 +107,11 @@ public class AdminMvcBootApplicationTests {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Test
+    public void test4() {
+        guiOrderTask.http();
     }
 
 }
