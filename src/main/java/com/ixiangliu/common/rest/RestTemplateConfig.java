@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
@@ -25,7 +24,9 @@ public class RestTemplateConfig {
 
     @Bean
     public ClientHttpRequestFactory simpleClientHttpRequestFactory(){
-        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+//        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        // 解决访问https证书问题
+        SSL factory = new SSL();
         //单位为ms
         factory.setReadTimeout(5000);
         //单位为ms
