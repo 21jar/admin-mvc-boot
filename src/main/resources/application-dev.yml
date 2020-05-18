@@ -4,7 +4,7 @@ spring:
     druid:
 #      allowMultiQueries=true mysql的批量更新
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/admin1?characterEncoding=UTF-8
+      url: jdbc:mysql://localhost:3306/admin1?characterEncoding=UTF-8&allowMultiQueries=true
       username: root
       password: 1qa2ws
 
