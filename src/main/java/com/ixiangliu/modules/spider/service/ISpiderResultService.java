@@ -15,5 +15,7 @@ public interface ISpiderResultService extends IService<SpiderResult> {
     PageUtils queryPage(Map<String, Object> params);
 
     boolean updateBatchId(List<SpiderResult> list);
+
+    boolean updateOrder(String keyword);
 }
 

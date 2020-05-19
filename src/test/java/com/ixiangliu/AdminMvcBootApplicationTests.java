@@ -1,7 +1,7 @@
 package com.ixiangliu;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.ixiangliu.modules.job.task.GuiOrderTask;
+import com.ixiangliu.modules.spider.service.ISpiderResultService;
 import com.ixiangliu.modules.sys.entity.Config;
 import com.ixiangliu.modules.sys.service.IConfigService;
 import com.ixiangliu.modules.wechat.dto.BaseResult;
@@ -32,7 +32,7 @@ public class AdminMvcBootApplicationTests {
     IWechatService iWechatService;
 
     @Autowired
-    GuiOrderTask guiOrderTask;
+    private ISpiderResultService iSpiderResultService;
 
     @Value("${appId}")
     private String appId;
@@ -111,7 +111,9 @@ public class AdminMvcBootApplicationTests {
 
     @Test
     public void test4() {
-        guiOrderTask.http();
+        String keyword="XpShopMemberAuth=5B9FDF6B0B3D897EB73D6BEFBA5E8C610001739CF28964E5F6D6E53C16727425BB53DC1DF9ED505BAEB197598E12C81EFD4B1337A30455E5062B09A309342E7671B58544224067251E43DAD5C8CFC32A7F0E316A431D63EDABC81E99142D54BD1B5EA1A058230BC4FDABBBAA06BA179AC28279F2803CBFD56560021A661CC59B5317BEF984C73A057DC8528747BE026A";
+        boolean flag = iSpiderResultService.updateOrder(keyword);
+        System.out.println(flag);
     }
 
 }
