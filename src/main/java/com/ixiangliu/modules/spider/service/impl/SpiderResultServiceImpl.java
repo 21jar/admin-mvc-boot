@@ -87,6 +87,7 @@ public class SpiderResultServiceImpl extends ServiceImpl<SpiderResultDao, Spider
                 spiderResult.setDetail(order.toString());
                 spiderResult.setType("guigaosu_order");
                 spiderResult.setTitle(order.get("productname").toString());
+                spiderResult.setParamOne(order.get("OrderNo").toString());
                 spiderResult.setParamTwo(order.get("result").toString() + "："+order.getString("OrderTime"));
                 spiderResult.setParamThree(order.get("TotalPrice").toString());
                 spiderResult.setParamId(order.get("OrderID").toString());
