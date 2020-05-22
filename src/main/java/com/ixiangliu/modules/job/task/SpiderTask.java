@@ -68,13 +68,22 @@ public class SpiderTask implements ITask {
 	}
 
 	public void http () {
-		CloseableHttpClient httpClient = HttpClients.createDefault();
 		// 请求
 		Long longtimeNew=System.currentTimeMillis();
 		Config config = iConfigService.getOne(new QueryWrapper<Config>().eq("param_key", "GUI_GAO_SU"));
 		String guiUrl = config.getParamValue();
 		HttpGet httpGet = new HttpGet(guiUrl + "/vshop_List.aspx?type=ajax&Action=GetProductList&BrandID=0&sid=-1&subcat=0&lp=0&hp=0&k=keyword&OrderSort=1&p=&page=1&Size=1000&_="+longtimeNew);
+		httpGet.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) MicroMessenger/2.3.31(0x12031f10) MacWechat NetType/WIFI WindowsWechat");
 		// 响应
+//		CredentialsProvider credsProvider = new BasicCredentialsProvider();
+//		Config ipProxy = iConfigService.getOne(new QueryWrapper<Config>().eq("param_key", "ip_proxy"));
+//		String ipProxyValue = ipProxy.getParamValue();
+//		JSONObject ipProxyJson = JSONObject.parseObject(ipProxyValue);
+//		credsProvider.setCredentials(
+//				new AuthScope(ipProxyJson.getString("host"), ipProxyJson.getInteger("port")),
+//				new UsernamePasswordCredentials(ipProxyJson.getString("username"), ipProxyJson.getString("password")));
+//		CloseableHttpClient httpClient = HttpClients.custom().setDefaultCredentialsProvider(credsProvider).build();
+		CloseableHttpClient httpClient = HttpClients.createDefault();
 		CloseableHttpResponse response = null;
 		try {
 			response = httpClient.execute(httpGet);
@@ -168,6 +177,19 @@ public class SpiderTask implements ITask {
 		msg3.setData(map3);
 		BaseResult flag3 = iWechatService.sendTemplateMsg(msg3, appId, appSecret);
 		log.info(flag3.toString());
+		TemplateMessage msg4 = new TemplateMessage();
+		msg4.setTemplateId("6QytVD6ZiDD5kFcVBUtQh1WvNJwIVOMREYozcyZST_M");
+		msg4.setTopcolor("#000033");
+		msg4.setTouser("oa6jXwXk7bGdHIfeBVzX6rG3V9ns");
+		msg4.setUrl(spiderResult.getParamTwo());
+		Map<String, TemplateMessage.KeyWord> map4 = new HashMap<>();
+		map4.put("title",new TemplateMessage.KeyWord(spiderResult.getTitle()));
+		map4.put("price",new TemplateMessage.KeyWord(spiderResult.getParamThree()));
+		map4.put("order",new TemplateMessage.KeyWord(spiderResult.getOrderNum()+""));
+		map4.put("time",new TemplateMessage.KeyWord(DateUtil.formatDate(new Date(),DateUtil.YYYY_MM_DD_HH_MM_SS)));
+		msg4.setData(map4);
+		BaseResult flag4 = iWechatService.sendTemplateMsg(msg4, appId, appSecret);
+		log.info(flag4.toString());
 	}
 
 	public static void main(String[] args) throws IOException {

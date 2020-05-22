@@ -63,12 +63,30 @@ public class SpiderResultServiceImpl extends ServiceImpl<SpiderResultDao, Spider
 
     @Override
     public boolean updateOrder(String keyword) {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
         Config config = iConfigService.getOne(new QueryWrapper<Config>().eq("param_key", "GUI_GAO_SU"));
         String guiUrl = config.getParamValue();
         HttpGet httpGet = new HttpGet(guiUrl + "/vshop_MyOrders.aspx?NoCopyRight=1&type=ajax&Action=GetList&PageNo=1&k2=&status=");
         // 响应
         httpGet.setHeader("cookie", keyword);
+        httpGet.addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) MicroMessenger/2.3.31(0x12031f10) MacWechat NetType/WIFI WindowsWechat");
+        //设置代理IP，设置连接超时时间 、 设置 请求读取数据的超时时间 、 设置从connect Manager获取Connection超时时间、
+//		HttpHost proxy = new HttpHost("123.57.232.137",16818);
+//		RequestConfig requestConfig = RequestConfig.custom()
+//				.setProxy(proxy)
+//				.setConnectTimeout(10000)
+//				.setSocketTimeout(10000)
+//				.setConnectionRequestTimeout(3000)
+//				.build();
+//		httpGet.setConfig(requestConfig);
+//        CredentialsProvider credsProvider = new BasicCredentialsProvider();
+//        Config ipProxy = iConfigService.getOne(new QueryWrapper<Config>().eq("param_key", "ip_proxy"));
+//        String ipProxyValue = ipProxy.getParamValue();
+//        JSONObject ipProxyJson = JSONObject.parseObject(ipProxyValue);
+//        credsProvider.setCredentials(
+//                new AuthScope(ipProxyJson.getString("host"), ipProxyJson.getInteger("port")),
+//                new UsernamePasswordCredentials(ipProxyJson.getString("username"), ipProxyJson.getString("password")));
+//        CloseableHttpClient httpClient = HttpClients.custom().setDefaultCredentialsProvider(credsProvider).build();
+        CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse response = null;
         try {
             response = httpClient.execute(httpGet);
@@ -80,18 +98,20 @@ public class SpiderResultServiceImpl extends ServiceImpl<SpiderResultDao, Spider
             List<SpiderResult> spiderResults = new ArrayList<>();
             list.forEach(element -> {
                 JSONObject order = (JSONObject)element;
-                SpiderResult spiderResult = getOne(new QueryWrapper<SpiderResult>().eq("param_id", order.get("OrderID").toString()).eq("type", "guigaosu_order"));
-                if (spiderResult == null) {
-                    spiderResult = new SpiderResult();
+                if (!"交易取消".equals(order.get("result").toString())) {
+                    SpiderResult spiderResult = getOne(new QueryWrapper<SpiderResult>().eq("param_id", order.get("OrderID").toString()).eq("type", "guigaosu_order"));
+                    if (spiderResult == null) {
+                        spiderResult = new SpiderResult();
+                    }
+                    spiderResult.setDetail(order.toString());
+                    spiderResult.setType("guigaosu_order");
+                    spiderResult.setTitle(order.get("productname").toString());
+                    spiderResult.setParamOne("-" + order.get("OrderNo").toString());
+                    spiderResult.setParamTwo(order.get("result").toString() + "："+order.getString("OrderTime"));
+                    spiderResult.setParamThree(order.get("TotalPrice").toString());
+                    spiderResult.setParamId(order.get("OrderID").toString());
+                    spiderResults.add(spiderResult);
                 }
-                spiderResult.setDetail(order.toString());
-                spiderResult.setType("guigaosu_order");
-                spiderResult.setTitle(order.get("productname").toString());
-                spiderResult.setParamOne(order.get("OrderNo").toString());
-                spiderResult.setParamTwo(order.get("result").toString() + "："+order.getString("OrderTime"));
-                spiderResult.setParamThree(order.get("TotalPrice").toString());
-                spiderResult.setParamId(order.get("OrderID").toString());
-                spiderResults.add(spiderResult);
             });
             if (CollectionUtils.isNotEmpty(spiderResults)) {
                 saveOrUpdateBatch(spiderResults);
