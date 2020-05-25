@@ -180,7 +180,7 @@ public class SpiderTask implements ITask {
 		TemplateMessage msg4 = new TemplateMessage();
 		msg4.setTemplateId("6QytVD6ZiDD5kFcVBUtQh1WvNJwIVOMREYozcyZST_M");
 		msg4.setTopcolor("#000033");
-		msg4.setTouser("oa6jXwXk7bGdHIfeBVzX6rG3V9ns");
+		msg4.setTouser("oa6jXwX6q3PcuVvTWdYE2OKb2YYc");
 		msg4.setUrl(spiderResult.getParamTwo());
 		Map<String, TemplateMessage.KeyWord> map4 = new HashMap<>();
 		map4.put("title",new TemplateMessage.KeyWord(spiderResult.getTitle()));

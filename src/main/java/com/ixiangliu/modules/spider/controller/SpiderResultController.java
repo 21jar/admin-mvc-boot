@@ -11,6 +11,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Map;
 @Slf4j
 @RestController
@@ -67,4 +68,9 @@ public class SpiderResultController {
         }
     }
 
+    @RequestMapping("/delete")
+    public Result delete(@RequestBody Long[] ids){
+        iSpiderResultService.removeByIds(Arrays.asList(ids));
+        return Result.ok();
+    }
 }
