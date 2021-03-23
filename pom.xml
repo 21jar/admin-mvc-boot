@@ -46,7 +46,7 @@
 
         <dom4j.version>1.6.1</dom4j.version>
 
-        <xstream.version>1.4.10</xstream.version>
+        <xstream.version>1.4.16</xstream.version>
 
         <httpclient.version>4.5.12</httpclient.version>
 
