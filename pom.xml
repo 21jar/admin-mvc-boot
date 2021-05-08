@@ -17,7 +17,7 @@
     <properties>
         <java.version>1.8</java.version>
 
-        <shiro.version>1.4.0</shiro.version>
+        <shiro.version>1.6.0</shiro.version>
 
         <!--mysql-->
         <mysql.version>5.1.46</mysql.version>
